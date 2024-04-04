@@ -1,0 +1,15 @@
+module com.qapio
+
+import "mixins/IdProp.pkl"
+import "mixins/GraphProp.pkl"
+import "mixins/PropsProp.pkl"
+import "mixins/StateProp.pkl"
+import "mixins/TasksProp.pkl"
+import "mixins/UiProp.pkl"
+
+Id: IdProp.Props
+Graph: GraphProp.Props
+Props: PropsProp.Props
+State: StateProp.Props
+Tasks: TasksProp.Props
+Ui: UiProp.Props

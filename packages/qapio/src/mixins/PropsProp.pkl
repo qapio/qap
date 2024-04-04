@@ -1,0 +1,3 @@
+open class Props {
+  fixed Type: String = getClass().toString()
+}

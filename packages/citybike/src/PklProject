@@ -1,0 +1,8 @@
+amends "pkl:Project"
+
+package {
+  name = "citybike"
+  baseUri = "package://github.com/qapio/qap/\(name)"
+  version = read("env:VERSION").toString()
+  packageZipUrl = "https://github.com/qapio/qap/releases/download/\(name)/\(name)@\(version).zip"
+}

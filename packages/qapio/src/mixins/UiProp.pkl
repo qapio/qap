@@ -1,0 +1,24 @@
+
+class TailwindProps {
+  Input: String
+  Output: String
+  Content: List<String> = List()
+}
+
+typealias ComponentsType = Mapping<String, String>
+
+class Page {
+  Label: String?
+  Icon: String
+  Url: String
+}
+
+typealias PagesType = Mapping<String, Page>
+
+class Props {
+  Tailwind: TailwindProps?
+  Index: String = "/"
+  Components: ComponentsType
+  Pages: PagesType
+  Stylesheets: List<String(endsWith(".css"))> = List()
+}

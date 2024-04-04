@@ -1,0 +1,5 @@
+import "package://github.com/qapio/qap/releases/download/qapio/qapio@1.0.16#/mixins/PropsProp.pkl"
+
+class Props extends PropsProp.Props {
+  ApiKey: String
+}

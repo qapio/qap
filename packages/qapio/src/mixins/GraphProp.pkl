@@ -1,0 +1,19 @@
+open class Node {
+  fixed Type: String = getClass().toString()
+  Id: String
+  Content: String?
+}
+
+class Qap extends Node {
+
+}
+
+class Edge {
+  From: String
+  To: String
+}
+
+class Props {
+  Nodes: List<Node>
+  Edges: List<Edge>
+}
