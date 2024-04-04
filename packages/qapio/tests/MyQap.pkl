@@ -1,0 +1,16 @@
+amends "../src/Qap.pkl"
+
+
+local class Button extends ComponentProps {
+  Type = "BUTTON"
+}
+
+
+Id = "Jelle"
+Ui {
+  Components {
+    ["A"] = new Button {
+      Id = "aa"
+    }
+  }
+}

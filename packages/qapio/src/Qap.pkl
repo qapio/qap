@@ -7,9 +7,21 @@ import "mixins/StateProp.pkl"
 import "mixins/TasksProp.pkl"
 import "mixins/UiProp.pkl"
 
+
+typealias Node = GraphProp.Node;
+typealias Edge = GraphProp.Edge;
+typealias Qap = GraphProp.Qap;
+typealias ComponentProps = UiProp.ComponentProps;
+
+typealias Task = TasksProp.TaskItem
+
+
+
 Id: IdProp.Props
 Graph: GraphProp.Props
 Props: PropsProp.Props
 State: StateProp.Props
 Tasks: TasksProp.Props
-Ui: UiProp.Props
+Ui: UiProp.Props = new UiProp.Props {
+
+}

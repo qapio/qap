@@ -5,7 +5,13 @@ class TailwindProps {
   Content: List<String> = List()
 }
 
-typealias ComponentsType = Mapping<String, String>
+open class ComponentProps {
+  Type: String = getClass().toString()
+  Id: String?
+  ClassNames: List<String>
+}
+
+typealias ComponentsType = Mapping<String, ComponentProps | Any>
 
 class Page {
   Label: String?
