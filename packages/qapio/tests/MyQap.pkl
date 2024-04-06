@@ -1,16 +1,1 @@
-amends "../src/Qap.pkl"
-
-
-local class Button extends ComponentProps {
-  Type = "BUTTON"
-}
-
-
-Id = "Jelle"
-Ui {
-  Components {
-    ["A"] = new Button {
-      Id = "aa"
-    }
-  }
-}
+import "package://github.com/qapio/qap/releases/download/ui/ui@1.0.2#/Button.pkl"

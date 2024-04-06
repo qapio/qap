@@ -12,7 +12,8 @@ typealias Node = GraphProp.Node;
 typealias Edge = GraphProp.Edge;
 typealias Qap = GraphProp.Qap;
 typealias ComponentProps = UiProp.ComponentProps;
-
+typealias Uri = UiProp.Uri
+typealias Jsx = UiProp.Jsx
 typealias Task = TasksProp.TaskItem
 
 

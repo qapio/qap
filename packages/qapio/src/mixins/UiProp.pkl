@@ -6,9 +6,18 @@ class TailwindProps {
 }
 
 open class ComponentProps {
-  Type: String = getClass().toString()
+  fixed Namespace: String = getClass().toString().split("#").first
+  fixed Type: String = getClass().toString().split("#").last
   Id: String?
   ClassNames: List<String>
+}
+
+class Jsx extends ComponentProps {
+  Path: String
+}
+
+open class Uri extends ComponentProps {
+  Path: String
 }
 
 typealias ComponentsType = Mapping<String, ComponentProps | Any>

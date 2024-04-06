@@ -1,5 +1,5 @@
-VERSION=1.0.23
-NAME=qapio
+VERSION=1.0.5
+NAME=ui
 DIST=../../dist
 
 release:

@@ -1,0 +1,3 @@
+import "Button.pkl"
+
+typealias Button = Button.Button
