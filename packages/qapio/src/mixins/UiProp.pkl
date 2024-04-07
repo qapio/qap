@@ -5,22 +5,26 @@ class TailwindProps {
   Content: List<String> = List()
 }
 
-open class ComponentProps {
+open class Component {
   fixed Namespace: String = getClass().toString().split("#").first
   fixed Type: String = getClass().toString().split("#").last
-  Id: String?
+}
+
+class Container extends Component {
   ClassNames: List<String>
+  Id: String?
+  Component: Component
 }
 
-class Jsx extends ComponentProps {
+class Jsx extends Component {
   Path: String
 }
 
-open class Uri extends ComponentProps {
+open class Uri extends Component {
   Path: String
 }
 
-typealias ComponentsType = Mapping<String, ComponentProps | Any>
+typealias ComponentsType = Mapping<String, Component | Any>
 
 class Page {
   Label: String?

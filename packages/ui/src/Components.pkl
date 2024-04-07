@@ -1,3 +1,8 @@
-import "Button.pkl"
+module Tdip.Qapio
 
-typealias Button = Button.Button
+import "package://github.com/qapio/qap/releases/download/qapio/qapio@1.0.24#/mixins/UiProp.pkl"
+
+class Button extends UiProp.Component {
+  Text: String = ""
+  OnClick: String?
+}
