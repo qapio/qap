@@ -8,12 +8,14 @@ class TailwindProps {
 open class Component {
   fixed Namespace: String = getClass().toString().split("#").first
   fixed Type: String = getClass().toString().split("#").last
+  Class: List<String>
   Id: String?
   Children: List<Component | Any>
+  Stylesheets: List<String>
 }
 
 class Container extends Component {
-  ClassNames: List<String>
+
 }
 
 class Jsx extends Component {
