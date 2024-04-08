@@ -1,8 +1,12 @@
 module Tdip.Qapio
 
-import "package://github.com/qapio/qap/releases/download/qapio/qapio@1.0.24#/mixins/UiProp.pkl"
+import "package://github.com/qapio/qap/releases/download/qapio/qapio@1.0.27#/mixins/UiProp.pkl"
 
 class Button extends UiProp.Component {
   Text: String = ""
   OnClick: String?
+}
+
+class Container extends UiProp.Component {
+  ClassNames: List<String>
 }

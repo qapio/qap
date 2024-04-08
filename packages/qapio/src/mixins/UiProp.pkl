@@ -8,12 +8,12 @@ class TailwindProps {
 open class Component {
   fixed Namespace: String = getClass().toString().split("#").first
   fixed Type: String = getClass().toString().split("#").last
+  Id: String?
+  Children: List<Component | Any>
 }
 
 class Container extends Component {
   ClassNames: List<String>
-  Id: String?
-  Component: Component
 }
 
 class Jsx extends Component {
@@ -36,7 +36,7 @@ typealias PagesType = Mapping<String, Page>
 
 class Props {
   Tailwind: TailwindProps?
-  Index: String = "/"
+  Index: Component | Any = "Button({text: 'BLANK'})"
   Components: ComponentsType
   Pages: PagesType
   Stylesheets: List<String(endsWith(".css"))> = List()
