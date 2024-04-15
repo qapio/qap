@@ -17,11 +17,13 @@ typealias Uri = UiProp.Uri
 typealias Jsx = UiProp.Jsx
 typealias Task = TasksProp.TaskItem
 
+class SpaceProps extends PropsProp.Props {
 
+}
 
 Id: IdProp.Props
 Graph: GraphProp.Props
-Props: PropsProp.Props
+Props: PropsProp.Props = new SpaceProps {}
 State: StateProp.Props
 Tasks: TasksProp.Props
 Ui: UiProp.Props = new UiProp.Props {

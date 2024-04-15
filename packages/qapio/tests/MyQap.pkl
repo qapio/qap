@@ -1,4 +1,3 @@
+amends "../src/Qap.pkl"
 
-function CreateButton(name: String): String = "Tdip.Button({name: '\(name)'})"
-
-a = CreateButton("sdsd")
+Id = "Ariel"
