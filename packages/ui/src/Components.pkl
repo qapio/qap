@@ -1,6 +1,6 @@
 module Tdip.Qapio
 
-import "package://github.com/qapio/qap/releases/download/qapio/qapio@1.0.30#/mixins/UiProp.pkl"
+import "package://github.com/qapio/qap/releases/download/qapio/qapio@1.0.33#/mixins/UiProp.pkl"
 
 class Button extends UiProp.Component {
   Text: String = ""

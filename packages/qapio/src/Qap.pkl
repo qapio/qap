@@ -6,6 +6,7 @@ import "mixins/PropsProp.pkl"
 import "mixins/StateProp.pkl"
 import "mixins/TasksProp.pkl"
 import "mixins/UiProp.pkl"
+import "mixins/StagesProp.pkl"
 
 
 typealias Node = GraphProp.Node;
@@ -25,6 +26,7 @@ Id: IdProp.Props
 Graph: GraphProp.Props
 Props: PropsProp.Props = new SpaceProps {}
 State: StateProp.Props
+Stages: StagesProp.Stages
 Tasks: TasksProp.Props
 Ui: UiProp.Props = new UiProp.Props {
 

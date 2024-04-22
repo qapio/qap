@@ -1,7 +1,27 @@
+
+class NodeMeta {
+  name: String?
+}
+
+class NodePosition {
+  X: Number = 0
+  Y: Number = 0
+}
+
+typealias Placement = "top" | "left" | "right" | "bottom"
+
 open class Node {
-  fixed Type: String = getClass().toString()
+  Type: String = "node"
   Id: String
   Content: String?
+  Meta: NodeMeta = new NodeMeta {
+
+  }
+  Position: NodePosition = new NodePosition {
+
+  }
+  OutputPlacement: Placement?
+  InputPlacement: Placement?
 }
 
 class Qap extends Node {
@@ -9,6 +29,7 @@ class Qap extends Node {
 }
 
 class Edge {
+  Id: String
   From: String
   To: String
 }
