@@ -25,6 +25,7 @@ class SpaceProps extends PropsProp.Props {
 
 class ModuleProps extends PropsProp.Props {
   $type = "Tdip.Qapio.Module"
+  Path: String
 }
 
 Id: IdProp.Props
