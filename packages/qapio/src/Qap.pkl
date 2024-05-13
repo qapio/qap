@@ -7,6 +7,7 @@ import "mixins/StateProp.pkl"
 import "mixins/TasksProp.pkl"
 import "mixins/UiProp.pkl"
 import "mixins/StagesProp.pkl"
+import "mixins/EnvironmentsProp.pkl"
 
 
 typealias Node = GraphProp.Node;
@@ -22,12 +23,17 @@ class SpaceProps extends PropsProp.Props {
 
 }
 
+class ModuleProps extends PropsProp.Props {
+  $type = "Tdip.Qapio.Module"
+}
+
 Id: IdProp.Props
 Graph: GraphProp.Props
 Props: PropsProp.Props = new SpaceProps {}
 State: StateProp.Props
 Stages: StagesProp.Stages
 Tasks: TasksProp.Props
+Environments: EnvironmentsProp.Props
 Ui: UiProp.Props = new UiProp.Props {
 
 }

@@ -1,3 +1,9 @@
 amends "../src/Qap.pkl"
 
 Id = "Ariel"
+State {
+  ["a"] = 5
+ ["A"] = new Dynamic {
+   ["a"] = 4
+ }
+}

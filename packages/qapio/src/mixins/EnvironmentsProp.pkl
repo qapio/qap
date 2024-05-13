@@ -1,0 +1,8 @@
+class PythonProps {
+  Requirements: String
+  Location: String = ".env"
+}
+
+class Props {
+  Python: PythonProps?
+}

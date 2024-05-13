@@ -29,7 +29,6 @@ class Qap extends Node {
 }
 
 class Edge {
-  Id: String
   From: String
   To: String
 }
