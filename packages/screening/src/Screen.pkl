@@ -1,6 +1,6 @@
 module Tdip.Qapio.Screening
 
-import "package://github.com/qapio/qap/releases/download/qapio/qapio@1.0.43#/mixins/PropsProp.pkl"
+import "package://github.com/qapio/qap/releases/download/qapio/qapio@1.0.46#/mixins/PropsProp.pkl"
 
 class Factor {
   DependsOn: List<String>

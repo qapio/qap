@@ -1,6 +1,5 @@
 class PythonProps {
-  Requirements: String = ""
-  Location: String = ".env"
+  Requirements: List<String>
 }
 
 class Props {
