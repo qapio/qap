@@ -1,7 +1,7 @@
 
 class TailwindProps {
-  Input: String
-  Output: String
+  Input: String?
+  Output: String?
   Content: List<String> = List()
 }
 

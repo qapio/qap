@@ -1,4 +1,4 @@
-VERSION=1.0.48
+VERSION=1.0.47
 NAME=screening
 DIST=../../dist
 

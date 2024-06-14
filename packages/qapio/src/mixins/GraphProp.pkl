@@ -28,12 +28,33 @@ class Qap extends Node {
 
 }
 
+class Component extends Node {
+  Type: String = "contentOnly"
+}
+
 class Edge {
   From: String
   To: String
 }
 
+class NodeSettings {
+  Class: List<String>
+}
+
+class EdgeSettings {
+  Class: List<String>
+}
+
+class Settings {
+  Class: List<String>
+  Minimap: Boolean = true
+  Controls: Boolean = true
+  Node: NodeSettings
+  Edge: EdgeSettings
+}
+
 class Props {
+  Settings: Settings
   Nodes: List<Node>
   Edges: List<Edge>
 }

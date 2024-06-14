@@ -9,10 +9,10 @@ import "mixins/UiProp.pkl"
 import "mixins/StagesProp.pkl"
 import "mixins/EnvironmentsProp.pkl"
 
-
 typealias Node = GraphProp.Node;
 typealias Edge = GraphProp.Edge;
-typealias Qap = GraphProp.Qap;
+// typealias Qap = GraphProp.Qap;
+typealias Qap = GraphProp.Component;
 typealias Component = UiProp.Component;
 typealias Container = UiProp.Container;
 typealias Uri = UiProp.Uri

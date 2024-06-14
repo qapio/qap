@@ -1,4 +1,4 @@
-VERSION=1.0.35
+VERSION=1.0.45
 NAME=ui
 DIST=../../dist
 
