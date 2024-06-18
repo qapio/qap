@@ -1,0 +1,8 @@
+class Settings {
+  Class: List<String>
+}
+
+class Props {
+  Settings: Settings
+  Slides: List<String>
+}

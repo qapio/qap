@@ -8,6 +8,7 @@ import "mixins/TasksProp.pkl"
 import "mixins/UiProp.pkl"
 import "mixins/StagesProp.pkl"
 import "mixins/EnvironmentsProp.pkl"
+import "mixins/PlaybookProp.pkl"
 
 typealias Node = GraphProp.Node;
 typealias Edge = GraphProp.Edge;
@@ -35,6 +36,9 @@ State: StateProp.Props
 Stages: StagesProp.Stages
 Tasks: TasksProp.Props
 Environments: EnvironmentsProp.Props
+Playbook: PlaybookProp.Props = new PlaybookProp.Props {
+
+}
 Ui: UiProp.Props = new UiProp.Props {
 
 }
