@@ -1,6 +1,6 @@
 module Tdip.Qapio.Screening
 
-import "package://github.com/qapio/qap/releases/download/qapio/qapio@1.0.45#/mixins/PropsProp.pkl"
+import "package://github.com/qapio/qap/releases/download/qapio/qapio@1.0.52#/mixins/PropsProp.pkl"
 
 class Props extends PropsProp.Props {
   $type = "Tdip.Qapio.Factor"
