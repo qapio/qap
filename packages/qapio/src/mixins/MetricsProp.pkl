@@ -1,0 +1,15 @@
+
+typealias ValueType = "Scalar" | "Vector"
+
+class Metric {
+  Expression: String
+  Unit: String?
+  ValueType: ValueType;
+  Icon: String?
+  Title: String?
+  SubTitle: String?
+}
+
+
+
+typealias Props = Mapping<String, Metric>
