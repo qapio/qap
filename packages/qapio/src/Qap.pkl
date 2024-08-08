@@ -37,7 +37,7 @@ Props: PropsProp.Props = new SpaceProps {}
 State: StateProp.Props
 Stages: StagesProp.Stages
 Tasks: TasksProp.Props
-Tags: TagsProp.Props
+Meta: TagsProp.Props
 Metrics: MetricsProp.Props
 Environments: EnvironmentsProp.Props
 Playbook: PlaybookProp.Props = new PlaybookProp.Props {

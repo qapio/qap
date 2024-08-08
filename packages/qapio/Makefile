@@ -1,4 +1,4 @@
-VERSION=1.0.55
+VERSION=1.0.57
 NAME=qapio
 DIST=../../dist
 
@@ -12,7 +12,7 @@ package:
 	/home/linuxbrew/.linuxbrew/bin/pkl project package -e VERSION=${VERSION} -w src --output-path ../${DIST}/${NAME}/${NAME}@${VERSION}
 
 resolve:
-	/home/linuxbrew/.linuxbrew/bin/pkl project resolve -w src -e VERSION=${VERSION} src
+	/home/linuxbrew/.linuxbrew/bin/pkl project resolve -w . -e VERSION=${VERSION} src
 
 
 deploy: resolve package upload
