@@ -40,9 +40,5 @@ Tasks: TasksProp.Props
 Meta: TagsProp.Props
 Metrics: MetricsProp.Props
 Environments: EnvironmentsProp.Props
-Playbook: PlaybookProp.Props = new PlaybookProp.Props {
-
-}
-Ui: UiProp.Props = new UiProp.Props {
-
-}
+Playbook: PlaybookProp.Props
+Ui: UiProp.Props
