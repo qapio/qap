@@ -34,12 +34,20 @@ class Page {
   Url: String
 }
 
+class NavItem {
+  Name: String
+  Endpoint: String
+  Icon: String?
+}
+
 typealias PagesType = Mapping<String, Page>
+typealias NavType = Mapping<String, NavItem>
 
 class Props {
   Tailwind: TailwindProps?
-  Index: Component | Any = "Button({text: 'BLANK'})"
+  Index: Component | Any = ""
   Components: ComponentsType
   Pages: PagesType
+  Navigation: NavType
   Stylesheets: List<String(endsWith(".css"))> = List()
 }
