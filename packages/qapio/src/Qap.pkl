@@ -11,7 +11,7 @@ import "mixins/EnvironmentsProp.pkl"
 import "mixins/PlaybookProp.pkl"
 import "mixins/MetricsProp.pkl"
 import "mixins/TagsProp.pkl"
-import "mixins/MainProp.pkl"
+import "mixins/MixinProp.pkl"
 import "mixins/DependenciesProp.pkl"
 
 typealias Node = GraphProp.Node;
@@ -34,10 +34,10 @@ class ModuleProps extends PropsProp.Props {
 }
 
 Id: IdProp.Props
-Main: MainProp.Props
+Mixin: MixinProp.Props?
 Graph: GraphProp.Props
 Props: PropsProp.Props = new SpaceProps {}
-State: StateProp.Props
+State: StateProp.Props?
 Stages: StagesProp.Stages
 Tasks: TasksProp.Props
 Meta: TagsProp.Props

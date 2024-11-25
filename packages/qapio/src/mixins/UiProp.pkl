@@ -43,7 +43,7 @@ class NavItem {
 typealias PagesType = Mapping<String, Page>
 typealias NavType = Mapping<String, NavItem>
 
-class Props {
+class ClassProps {
   Tailwind: TailwindProps?
   Index: Component | Any = ""
   Components: ComponentsType
@@ -51,3 +51,6 @@ class Props {
   Navigation: NavType
   Stylesheets: List<String(endsWith(".css"))> = List()
 }
+
+typealias Props = (ClassProps | List<String> | String)?
+

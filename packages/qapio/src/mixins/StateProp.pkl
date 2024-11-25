@@ -1,1 +1,1 @@
-typealias Props = Mapping<String, Any>
+typealias Props = Mapping<String, Any> | String?
