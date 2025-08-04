@@ -13,13 +13,15 @@ import "mixins/MetricsProp.pkl"
 import "mixins/TagsProp.pkl"
 import "mixins/MixinProp.pkl"
 import "mixins/DependenciesProp.pkl"
+import "mixins/ResourcesProp.pkl"
+import "mixins/AuthProp.pkl"
 
-typealias Node = GraphProp.Node;
-typealias Edge = GraphProp.Edge;
+typealias Node = GraphProp.Node
+typealias Edge = GraphProp.Edge
 // typealias Qap = GraphProp.Qap;
-typealias Qap = GraphProp.Component;
-typealias Component = UiProp.Component;
-typealias Container = UiProp.Container;
+typealias Qap = GraphProp.Component
+typealias Component = UiProp.Component
+typealias Container = UiProp.Container
 typealias Uri = UiProp.Uri
 typealias Jsx = UiProp.Jsx
 typealias Task = TasksProp.TaskItem
@@ -34,15 +36,17 @@ class ModuleProps extends PropsProp.Props {
 }
 
 Id: IdProp.Props
-Mixin: MixinProp.Props?
-Graph: GraphProp.Props
+Qapi: MixinProp.Props?
+//Graph: GraphProp.Props
 Props: PropsProp.Props = new SpaceProps {}
-State: StateProp.Props?
-Stages: StagesProp.Stages
+Auth: AuthProp.Props = List()
+//State: StateProp.Props?
+//Stages: StagesProp.Stages
 Tasks: TasksProp.Props
-Meta: TagsProp.Props
-Metrics: MetricsProp.Props
-Environments: EnvironmentsProp.Props
-Playbook: PlaybookProp.Props
+//Meta: TagsProp.Props
+//Metrics: MetricsProp.Props
+//Environments: EnvironmentsProp.Props
+//Playbook: PlaybookProp.Props
 Ui: UiProp.Props
+Resources: ResourcesProp.Props
 Dependencies: DependenciesProp.Props
