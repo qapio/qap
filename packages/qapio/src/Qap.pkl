@@ -39,7 +39,6 @@ Id: IdProp.Props
 Qapi: MixinProp.Props?
 //Graph: GraphProp.Props
 Props: PropsProp.Props = new SpaceProps {}
-Auth: AuthProp.Props = List()
 //State: StateProp.Props?
 //Stages: StagesProp.Stages
 Tasks: TasksProp.Props

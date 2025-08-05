@@ -1,1 +1,7 @@
-typealias Props = List<String>
+class AuthItem {
+  Flags: List<String>
+}
+
+class Props {
+  Ui: Mapping<String, AuthItem>
+}
