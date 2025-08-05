@@ -1,4 +1,4 @@
-VERSION=1.0.82
+VERSION=1.0.86
 NAME=qapio
 DIST=../../dist
 

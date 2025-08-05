@@ -1,3 +1,12 @@
-open class Props {
-  $type: String = getClass().toString().replaceAll("#", ".")
+abstract class TemplateProps {
+  fixed $type: String
+}
+
+class SpaceProps extends TemplateProps {
+  fixed $type = "com.qapio.SpaceProps"
+}
+
+
+class Props {
+  Template: TemplateProps = new SpaceProps {}
 }

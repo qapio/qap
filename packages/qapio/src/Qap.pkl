@@ -26,19 +26,12 @@ typealias Uri = UiProp.Uri
 typealias Jsx = UiProp.Jsx
 typealias Task = TasksProp.TaskItem
 
-class SpaceProps extends PropsProp.Props {
-
-}
-
-class ModuleProps extends PropsProp.Props {
-  $type = "Tdip.Qapio.Module"
-  Path: String
-}
-
 Id: IdProp.Props
 Qapi: MixinProp.Props?
 //Graph: GraphProp.Props
-Props: PropsProp.Props = new SpaceProps {}
+Props: PropsProp.Props = new {
+  Template = new PropsProp.SpaceProps {}
+}
 //State: StateProp.Props?
 //Stages: StagesProp.Stages
 Tasks: TasksProp.Props
