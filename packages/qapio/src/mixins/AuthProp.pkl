@@ -2,6 +2,9 @@ class AuthItem {
   Flags: List<String>
 }
 
-class Props {
-  Ui: Mapping<String, AuthItem>
+typealias Props = Mapping<String, Mapping<String, AuthItem>>
+
+
+a = new Props {
+
 }
