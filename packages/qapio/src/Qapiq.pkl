@@ -1,34 +1,5 @@
 module com.qapio
 
-import "mixins/IdProp.pkl"
-
-import "mixins/TasksProp.pkl"
-import "mixins/UiProp.pkl"
-import "mixins/MixinProp.pkl"
-import "mixins/DependenciesProp.pkl"
-import "mixins/ResourcesProp.pkl"
-import "mixins/AuthProp.pkl"
-
-open class Qaplet {
-  Type: String
-  Props: Any
-}
-
-class SpaceData {
-
-}
-
-class SpaceProps extends Qaplet {
-  Type = "com.qapio.SpaceProps"
-  Props = new SpaceData {}
-}
-
-
-class PropsData {
-  Qaplet: Qaplet = new SpaceProps {}
-  Auth: AuthProp.Props
-}
-
 class IdentityType {
   Name: String
   Role: Listing<String>
@@ -81,21 +52,16 @@ class QapiDefinition {
   Context: Listing<ContextProp>
 }
 
-class AssistantType {
+class Assistant {
   Identity: IdentityType
   Qapi: Listing<QapiDefinition>
   Context: Listing<ContextProp>
-  Team: Listing<AssistantType>
+  Team: Listing<Assistant>
   Principles: Listing<String>
 }
 
-Id: IdProp.Props
-Qapi: MixinProp.Props?
-Props: PropsData = new {
-  Qaplet = new SpaceProps {}
-}
-Tasks: TasksProp.Props
-Ui: UiProp.Props
-Resources: ResourcesProp.Props
-Dependencies: DependenciesProp.Props
-Assistant: AssistantType?
+Identity: IdentityType
+Qapi: Listing<QapiDefinition>
+Team: Listing<Assistant>
+Context: Listing<ContextProp>
+Principles: Listing<String>
