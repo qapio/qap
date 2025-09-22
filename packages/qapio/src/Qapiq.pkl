@@ -5,18 +5,18 @@ class IdentityType {
   Role: Listing<String>
   Tone: Listing<String>
 }
-
+class ContextProp {
+  Name: String?
+  Description: String?
+  Value: String
+}
 open class PropertyType {
   Name: String?
   Description: String?
   Required: Boolean = true
 }
 
-class ContextProp {
-  Name: String?
-  Description: String?
-  Value: String
-}
+
 
 class StringProp extends PropertyType {
   Default: String?
