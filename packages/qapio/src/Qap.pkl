@@ -93,11 +93,11 @@ class AssistantType {
 */
 
 
-class UserType {
+/*class AudienceType {
   Background: Listing<String>
   Success: Listing<String>
   Environment: Listing<String>
-}
+}*/
 
 
 class KnowledgeItem {
@@ -106,6 +106,14 @@ class KnowledgeItem {
   Tags: Listing<String>
   Value: String | Resource
 }
+
+class ExemplarItem {
+  Name: String
+  Description: String
+  Tags: Listing<String>
+  Value: String | Resource
+}
+
 
 typealias JsonSchemaTypeName = "string" | "number" | "integer" | "boolean" | "object" | "array" | "null"
 
@@ -156,13 +164,21 @@ class QapiType {
   Strict: Boolean = false
 }
 
+class ContextType {
+  Background: Listing<String>
+  SucessCriteria: Listing<String>
+  Environment: Listing<String>
+}
+
 class AssistantType {
   Task: Listing<String>
-  User: UserType
-  Exemplars: Listing<String>
+  Role: Listing<String>
+  Context: ContextType
+  Audience: Listing<String>
   Format: Listing<String>
   Tone: Listing<String>
-  Role: Listing<String>
+  Guardrails: Listing<String>
+  Exemplars: Listing<ExemplarItem>
   Knowledge: Listing<KnowledgeItem>
   Workspace: Mapping<String, Resource>
   Qapi: Listing<QapiType>
@@ -176,6 +192,8 @@ class FunctionCall {
   parameters: JsonSchemaType
   strict: Boolean
 }
+
+
 
 function createParameter(parameter: StringProp | NumberProp | IntegerProp | BooleanProp | ArrayProp | JsonSchemaType ): JsonSchemaType =
   if (parameter is JsonSchemaType)
@@ -220,11 +238,13 @@ output {
     ["Props"] = Props
     ["Assistant"] = new Dynamic {
       ["Task"] = Assistant.Task
-      ["User"] = Assistant.User
-      ["Exemplars"] = Assistant.Exemplars
+      ["Role"] = Assistant.Role
+      ["Context"] = Assistant.Context
+      ["Audience"] = Assistant.Audience
       ["Format"] = Assistant.Format
       ["Tone"] = Assistant.Tone
-      ["Role"] = Assistant.Role
+      ["Guardrails"] = Assistant.Guardrails
+      ["Exemplars"] = Assistant.Exemplars
       ["Knowledge"] = Assistant.Knowledge
       ["Workspace"] = Assistant.Workspace
       ["Qapi"] = Assistant.Qapi
