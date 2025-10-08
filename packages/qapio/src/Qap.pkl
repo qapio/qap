@@ -104,14 +104,14 @@ class KnowledgeItem {
   Name: String
   Description: String
   Tags: Listing<String>
-  Value: String | Resource
+  Value: Resource
 }
 
 class ExemplarItem {
   Name: String
   Description: String
   Tags: Listing<String>
-  Value: String | Resource
+  Value: Resource
 }
 
 
@@ -155,9 +155,12 @@ class ArrayProp extends PropertyType {
 
 typealias JsonSchemaType = JsonSchema.Schema
 
+typealias ResponseModeType = "Direct" | "Synthesized"
+
 class QapiType {
   Name: String
   Description: String
+  ResponseMode: ResponseModeType = "Direct"
   Parameters: Mapping<String, (StringProp | NumberProp | IntegerProp | BooleanProp | ArrayProp | JsonSchemaType)>
   Required: Listing<String>
   Expression: String
@@ -166,11 +169,39 @@ class QapiType {
 
 class ContextType {
   Background: Listing<String>
-  SucessCriteria: Listing<String>
+  SuccessCriteria: Listing<String>
   Environment: Listing<String>
 }
 
+class IdentityType {
+  FirstName: String?
+  LastName: String?
+  AvatarUrl: String?
+  Nickname: String?
+  Title: String?
+  Email: String?
+  Phone: String?
+}
+
+class SuggestionType {
+  Title: String
+  Label: String
+  Prompt: String
+}
+
+class GreetingType {
+  Title: String
+  Label: String
+}
+
+class PanelsType {
+  Suggestions: Listing<SuggestionType>
+  Greetings: Listing<GreetingType>
+}
+
 class AssistantType {
+  Profile: IdentityType
+  Panels: PanelsType
   Task: Listing<String>
   Role: Listing<String>
   Context: ContextType
@@ -236,7 +267,9 @@ output {
     ["Resources"] = Resources
     ["Dependencies"] = Dependencies
     ["Props"] = Props
-    ["Assistant"] = new Dynamic {
+    ["Assistant"] = if (Assistant == null) null else new Dynamic {
+      ["Profile"] = Assistant.Profile
+      ["Panels"] = Assistant.Panels
       ["Task"] = Assistant.Task
       ["Role"] = Assistant.Role
       ["Context"] = Assistant.Context
