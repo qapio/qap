@@ -203,6 +203,7 @@ class AssistantType {
   Profile: IdentityType
   Panels: PanelsType
   Task: Listing<String>
+  Team: Listing<String>
   Role: Listing<String>
   Context: ContextType
   Audience: Listing<String>
@@ -247,6 +248,10 @@ function createTool(qapi: QapiType): FunctionCall =
     strict = qapi.Strict
   }
 
+class RouterType {
+  Files: Listing<String>
+}
+
 Id: IdProp.Props
 Qapi: MixinProp.Props?
 Props: PropsData = new {
@@ -257,6 +262,7 @@ Ui: UiProp.Props
 Resources: ResourcesProp.Props
 Dependencies: DependenciesProp.Props
 Assistant: AssistantType?
+Router: RouterType?
 
 output {
   value = new Dynamic {
@@ -266,11 +272,13 @@ output {
     ["Ui"] = Ui
     ["Resources"] = Resources
     ["Dependencies"] = Dependencies
+    ["Router"] = Router
     ["Props"] = Props
     ["Assistant"] = if (Assistant == null) null else new Dynamic {
       ["Profile"] = Assistant.Profile
       ["Panels"] = Assistant.Panels
       ["Task"] = Assistant.Task
+      ["Team"] = Assistant.Team
       ["Role"] = Assistant.Role
       ["Context"] = Assistant.Context
       ["Audience"] = Assistant.Audience
