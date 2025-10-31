@@ -248,8 +248,10 @@ function createTool(qapi: QapiType): FunctionCall =
     strict = qapi.Strict
   }
 
-class RouterType {
+class SpaceType {
   Files: Listing<String>
+  PreStart: String?
+  PostStop: String?
 }
 
 Id: IdProp.Props
@@ -262,7 +264,7 @@ Ui: UiProp.Props
 Resources: ResourcesProp.Props
 Dependencies: DependenciesProp.Props
 Assistant: AssistantType?
-Router: RouterType?
+Space: SpaceType
 
 output {
   value = new Dynamic {
@@ -272,7 +274,7 @@ output {
     ["Ui"] = Ui
     ["Resources"] = Resources
     ["Dependencies"] = Dependencies
-    ["Router"] = Router
+    ["Space"] = Space
     ["Props"] = Props
     ["Assistant"] = if (Assistant == null) null else new Dynamic {
       ["Profile"] = Assistant.Profile
