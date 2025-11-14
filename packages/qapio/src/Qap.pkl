@@ -28,6 +28,7 @@ class SpaceProps extends Qaplet {
 class PropsData {
   Qaplet: Qaplet = new SpaceProps {}
   Auth: AuthProp.Props
+  Dependencies: Listing<String>
 }
 /*
 
@@ -260,7 +261,7 @@ Props: PropsData = new {
   Qaplet = new SpaceProps {}
 }
 Tasks: TasksProp.Props
-Ui: UiProp.Props
+Ui: UiProp.Props = new Listing<String> {}
 Resources: ResourcesProp.Props
 Dependencies: DependenciesProp.Props
 Assistant: AssistantType?
@@ -271,7 +272,7 @@ output {
     ["Id"] = Id
     ["Qapi"] = Qapi
     ["Tasks"] = Tasks
-    ["Ui"] = Ui
+    ["Ui"] = if (Ui is String) List(Ui) else Ui
     ["Resources"] = Resources
     ["Dependencies"] = Dependencies
     ["Space"] = Space

@@ -52,5 +52,5 @@ class ClassProps {
   Stylesheets: List<String(endsWith(".css"))> = List()
 }
 
-typealias Props = (ClassProps | List<String> | String)?
+typealias Props = Listing<String> | String
 
