@@ -200,7 +200,13 @@ class PanelsType {
   Greetings: Listing<GreetingType>
 }
 
+class Settings {
+  Model: String?
+  Endpoint: String?
+}
+
 class AssistantType {
+  Settings: Settings
   Profile: IdentityType
   Panels: PanelsType
   Task: Listing<String>
@@ -278,6 +284,7 @@ output {
     ["Space"] = Space
     ["Props"] = Props
     ["Assistant"] = if (Assistant == null) null else new Dynamic {
+      ["Settings"] = Assistant.Settings
       ["Profile"] = Assistant.Profile
       ["Panels"] = Assistant.Panels
       ["Task"] = Assistant.Task
