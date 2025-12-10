@@ -10,6 +10,29 @@ import "mixins/DependenciesProp.pkl"
 import "mixins/ResourcesProp.pkl"
 import "mixins/AuthProp.pkl"
 
+local class ModelItem {
+  Model: String
+}
+
+class OpenAiHooksType {
+  OnRequest: String?
+  OnResponse: String?
+  Filter: String?
+}
+
+class OpenAiSettings {
+  ApiKey: String
+  Models: Listing<ModelItem>
+  Hooks: OpenAiHooksType = new {}
+}
+
+
+class OpenAiConnection extends Qaplet {
+  Type: String = "OpenAiConnection"
+  Props: OpenAiSettings
+}
+
+
 open class Qaplet {
   Type: String
   Props: Any
