@@ -35,7 +35,7 @@ class OpenAiConnection extends Qaplet {
 
 open class Qaplet {
   Type: String
-  Props: Any
+  Props: Any = new Dynamic{}
 }
 
 class SpaceData {

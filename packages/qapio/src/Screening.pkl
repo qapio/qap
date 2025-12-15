@@ -1,0 +1,7 @@
+module com.qapio
+import "Qapio.pkl"
+
+class Screening extends Qapio.Extension {
+  Type = "Tdip.Qapio.Screening.ScreeningModule"
+}
+

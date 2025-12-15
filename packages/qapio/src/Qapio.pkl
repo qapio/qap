@@ -1,0 +1,24 @@
+module com.qapio
+import "Qap.pkl"
+
+open class Extension extends Qap.Qaplet {
+
+}
+
+Workspaces: Mapping<String, String>
+Extensions: Listing<Extension>
+
+output {
+  value = new Qap {
+    Id = "Qapio"
+    Props {
+      Qaplet {
+        Type = "Tdip.Qapio.Qapio"
+        Props = new Dynamic {
+          ["Workspaces"] = Workspaces
+          ["Extensions"] = Extensions
+        }
+      }
+    }
+  }
+}
