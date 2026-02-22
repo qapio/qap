@@ -1,0 +1,55 @@
+module com.qapio
+import "Qap.pkl"
+
+abstract class Stage {
+  Type: String
+  Props: Any = new Dynamic {}
+  Operators: List<Operator>
+}
+
+open class Operator extends Stage {
+
+}
+
+
+open class From extends Stage {
+  function AddOperation(operator: Operator): Stage =
+    let (ops = this.Operators)
+    (this) {}
+
+  function Take(Count: Int): Stage =
+    (this) {Operators = super.Operators.add(new Operator {
+      Type = "Take"
+      Props = new Dynamic {}
+    })}
+}
+
+class Via extends Stage {
+
+}
+
+
+Id: String(matches(Regex(#"(^[a-zA-Z_$][\w$]*$)"#)))
+Stages: Listing<Stage>
+
+function Take(Count: Int): Operator =
+  new Operator {
+    Type = "Take"
+    Props = new Dynamic {
+      ["Count"] = Count
+    }
+  }
+
+output {
+  value = new Qap {
+    Id = module.Id
+    Props {
+      Qaplet {
+        Type = "Tdip.Stages.Graph"
+        Props = new Dynamic {
+          ["Stages"] = Stages
+        }
+      }
+    }
+  }
+}

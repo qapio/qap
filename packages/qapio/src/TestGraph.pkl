@@ -1,0 +1,18 @@
+amends "Source.pkl"
+import "Source.pkl"
+
+Id = "MyGraph"
+Stages {
+  new From {
+    Type = "Source.Tick"
+    Props = new Dynamic {
+      Interval = 100
+    }
+  }.Take(1400)
+  new Via {
+    Type = "OpenAi.Qapi"
+    Props = new Dynamic {
+      H = 45
+    }
+  }
+}
