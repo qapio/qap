@@ -9,6 +9,13 @@ import "mixins/MixinProp.pkl"
 import "mixins/DependenciesProp.pkl"
 import "mixins/ResourcesProp.pkl"
 import "mixins/AuthProp.pkl"
+import "mixins/MetricsProp.pkl" as MetricsProps
+
+import "pkl:reflect"
+
+local __file__ = let (uri = reflect.Module(this).uri) (
+  uri.split("/").takeLast(2)[0]
+  )
 
 local class ModelItem {
   Model: String
@@ -223,9 +230,26 @@ class PanelsType {
   Greetings: Listing<GreetingType>
 }
 
+abstract class Gateway {
+  Id: String;
+  abstract Type: String
+  Props: Any = new Dynamic{}
+}
+
+class TelegramProps {
+  Token: String;
+}
+
+class Telegram extends Gateway {
+  Type = "Telegram"
+  Props: TelegramProps
+}
+
 class Settings {
   Model: String?
   Endpoint: String?
+  Providers: Listing<String>
+  Gateways: Listing<Gateway>
 }
 
 class AssistantType {
@@ -284,7 +308,7 @@ class SpaceType {
   PostStop: String?
 }
 
-Id: IdProp.Props
+Id: IdProp.Props?
 Qapi: MixinProp.Props?
 Props: PropsData = new {
   Qaplet = new SpaceProps {}
@@ -295,10 +319,10 @@ Resources: ResourcesProp.Props
 Dependencies: DependenciesProp.Props
 Assistant: AssistantType?
 Space: SpaceType
-
+Metrics: MetricsProps.Props
 output {
   value = new Dynamic {
-    ["Id"] = Id
+    ["Id"] = if (Id == null) __file__ else Id
     ["Qapi"] = Qapi
     ["Tasks"] = Tasks
     ["Ui"] = if (Ui is String) List(Ui) else Ui
@@ -306,6 +330,7 @@ output {
     ["Dependencies"] = Dependencies
     ["Space"] = Space
     ["Props"] = Props
+    ["Instrumentation"] = Metrics
     ["Assistant"] = if (Assistant == null) null else new Dynamic {
       ["Settings"] = Assistant.Settings
       ["Profile"] = Assistant.Profile

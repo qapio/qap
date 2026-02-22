@@ -1,15 +1,19 @@
 
 typealias ValueType = "Scalar" | "Vector"
 
-class Metric {
+abstract class Metric {
+  abstract Type: String
   Expression: String
   Unit: String?
-  ValueType: ValueType;
-  Icon: String?
-  Title: String?
-  SubTitle: String?
+  Name: String
+  Description: String?
+  Tags: Mapping<String, Any>
+}
+
+class Counter extends Metric {
+  Type = "Counter"
 }
 
 
 
-typealias Props = Mapping<String, Metric>
+typealias Props = Listing<Metric>
