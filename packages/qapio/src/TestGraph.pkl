@@ -1,5 +1,4 @@
 amends "Source.pkl"
-import "Source.pkl"
 
 Id = "MyGraph"
 Stages {
@@ -8,7 +7,9 @@ Stages {
     Props = new Dynamic {
       Interval = 100
     }
-  }.Take(1400)
+  }.Take(1400).Via(new Operator {
+    Type = ""
+  })
   new Via {
     Type = "OpenAi.Qapi"
     Props = new Dynamic {

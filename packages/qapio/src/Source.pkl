@@ -17,7 +17,13 @@ open class From extends Stage {
     let (ops = this.Operators)
     (this) {}
 
-  function Take(Count: Int): Stage =
+  function Take(Count: Int): From =
+    (this) {Operators = super.Operators.add(new Operator {
+      Type = "Take"
+      Props = new Dynamic {}
+    })}
+
+  function Via(Stage: Stage): From =
     (this) {Operators = super.Operators.add(new Operator {
       Type = "Take"
       Props = new Dynamic {}
