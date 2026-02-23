@@ -1,5 +1,84 @@
 module com.qapio
 import "Qapio.pkl"
+import "Flow.pkl"
+
+
+
+function CreateFactor(fieldName: String): FactorBuilder =
+  new FactorBuilder {
+    FieldName = fieldName
+  }
+
+class FactorBuilder {
+  FieldName: String
+  Endpoint: String?
+  function UseEndpoint(endpoint: String): FactorBuilder =
+    (this) {Endpoint = endpoint}
+
+  function Build() =
+    new Factor {
+      Type = "sdkj"
+      Props {
+        FieldName = "d"
+      }
+    }
+}
+
+class FactorProps {
+  FieldName: String
+}
+
+class Factor {
+  Type: String
+  Props: FactorProps
+}
+
+class UniverseProps {
+  Name: String?
+}
+class Universe {
+  Type: String
+  Props: UniverseProps
+}
+
+
+class ScreenProps {
+  MemberChunkSize: Int = 200
+  DateChunkSize: Int = 10
+  Concurrency: Int = 1
+  IdleTimeout: Int = 90
+  OnResult: String?
+  Factors: Listing<Factor>
+  Universes: Listing<Universe>
+}
+
+/// Creates factor
+function Factor(type: String, fieldName: String): Factor =
+  new Factor {
+    Type = type
+    Props {
+      FieldName = fieldName
+    }
+  }
+
+
+function Universe(type: String, name: String): Universe =
+  new Universe {
+    Type = type
+    Props {
+      Name = name
+    }
+  }
+
+function Screen(props: ScreenProps): Flow.FlowStage =
+  if (props.Factors.length == 0)
+    throw("dd")
+
+    else
+  new Flow.FlowStage {
+    Type = "Screening.Screen"
+    Props = props
+  }
 
 class Screening extends Qapio.Extension {
   Type = "Tdip.Qapio.Screening.ScreeningModule"

@@ -1,61 +1,31 @@
 module com.qapio
-import "Qap.pkl"
+import "Qapi.pkl"
 
-abstract class Stage {
-  Type: String
-  Props: Any = new Dynamic {}
-  Operators: List<Operator>
-}
+typealias Stage = Qapi.Stage
+typealias SourceStage = Qapi.SourceStage
 
-open class Operator extends Stage {
-
-}
-
-
-open class From extends Stage {
-  function AddOperation(operator: Operator): Stage =
-    let (ops = this.Operators)
-    (this) {}
-
-  function Take(Count: Int): From =
-    (this) {Operators = super.Operators.add(new Operator {
-      Type = "Take"
-      Props = new Dynamic {}
-    })}
-
-  function Via(Stage: Stage): From =
-    (this) {Operators = super.Operators.add(new Operator {
-      Type = "Take"
-      Props = new Dynamic {}
-    })}
-}
-
-class Via extends Stage {
-
-}
-
-
-Id: String(matches(Regex(#"(^[a-zA-Z_$][\w$]*$)"#)))
-Stages: Listing<Stage>
-
-function Take(Count: Int): Operator =
-  new Operator {
-    Type = "Take"
+function Tick(interval: Int): Stage =
+  From(new SourceStage {
+    Type = "Source.Tick"
     Props = new Dynamic {
-      ["Count"] = Count
+      Interval = interval
     }
-  }
+  })
 
-output {
-  value = new Qap {
-    Id = module.Id
-    Props {
-      Qaplet {
-        Type = "Tdip.Stages.Graph"
-        Props = new Dynamic {
-          ["Stages"] = Stages
-        }
-      }
+function CombineLatest(sources: Listing<Stage>): Stage =
+  From(new SourceStage {
+    Type = "Source.CombineLatest"
+    Props = new Dynamic {
+      Sources = sources
     }
-  }
-}
+  })
+
+function From(stage: Stage): Stage =
+  if (stage is SourceStage)
+      stage
+     else
+      new SourceStage {
+        Kind = "Source"
+        Type = stage.Type
+        Props = stage.Props
+      }

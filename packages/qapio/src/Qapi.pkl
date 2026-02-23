@@ -1,0 +1,56 @@
+
+open class Qapi {
+  Type: String
+  Props: Any = new Dynamic {}
+}
+
+open class Stage extends Qapi {
+  Kind: "Source" | "Flow" | "Sink"
+  Operators: List<Operator>
+  function AddOperation(type: String, props: Any): Stage =
+    (this) {Operators = super.Operators.add(new Operator {Type = type Props = props})}
+
+
+  function Take(count: Int): Stage =
+    AddOperation("Take", new Dynamic {
+        Count = count
+    })
+
+  function Select(lambda: String): Stage =
+    AddOperation("Select", new Dynamic {
+        Expression = lambda
+    })
+
+  function Skip(count: Int): Stage =
+    AddOperation("Skip", new Dynamic {
+        Count = count
+    })
+
+  function Via(stage: Stage | String): Stage =
+
+    if (stage is String)
+        AddOperation("Via", new Dynamic {
+          Expression = stage
+        })
+      else
+    AddOperation("Via", new Dynamic {
+        Stage = stage
+    })
+
+  function Where(lambda: String): Stage =
+    AddOperation("Where", new Dynamic {
+      Expression = lambda
+    })
+}
+
+open class Operator extends Qapi {
+
+}
+
+class FlowStage extends Stage {
+  Kind = "Flow"
+}
+
+class SourceStage extends Stage {
+  Kind = "Source"
+}

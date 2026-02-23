@@ -1,0 +1,4 @@
+amends "OpenAi.pkl"
+
+Id = "Firkrir6354"
+ApiKey = "SS"

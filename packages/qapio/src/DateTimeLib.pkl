@@ -1,0 +1,12 @@
+module com.qapio
+import "Qapi.pkl"
+import "Source.pkl"
+
+function Generate(fromOffset: String, toOffset: String): Source.SourceStage =
+  new Source.SourceStage {
+    Type = "DateTimeLib.Generate"
+    Props = new Dynamic {
+      FromOffset = fromOffset
+      ToOffset = toOffset
+    }
+  }

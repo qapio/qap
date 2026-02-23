@@ -1,0 +1,18 @@
+module com.qapio
+import "Qapi.pkl"
+
+import "package://pkg.pkl-lang.org/pkl-pantry/org.openapis.v3@1.0.0#/SchemaGenerator.pkl"
+
+
+class AgentProps {
+  ResponseFormat: Module|Class|TypeAlias
+}
+
+function AsFlow(props: AgentProps): Qapi.FlowStage =
+  new Qapi.FlowStage {
+    Type = "Assistant.Agent"
+    Props = new Dynamic {
+      ResponseFormat = SchemaGenerator.generate(props.ResponseFormat)
+
+}
+  }

@@ -1,0 +1,4 @@
+amends "OpenAi.pkl"
+
+Id = "Bob"
+ApiKey = read("env:VERSION")

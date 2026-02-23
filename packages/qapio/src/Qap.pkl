@@ -10,6 +10,7 @@ import "mixins/DependenciesProp.pkl"
 import "mixins/ResourcesProp.pkl"
 import "mixins/AuthProp.pkl"
 import "mixins/MetricsProp.pkl" as MetricsProps
+import "Qapi.pkl" as Qapis
 
 import "pkl:reflect"
 
@@ -43,6 +44,13 @@ class OpenAiConnection extends Qaplet {
 open class Qaplet {
   Type: String
   Props: Any = new Dynamic{}
+  function ZipWithAgent(): Qapis.FlowStage =
+    new Qapis.FlowStage {
+      Type = "Victory"
+      Props = new Dynamic {
+
+      }
+    }
 }
 
 class SpaceData {
@@ -230,26 +238,10 @@ class PanelsType {
   Greetings: Listing<GreetingType>
 }
 
-abstract class Gateway {
-  Id: String;
-  abstract Type: String
-  Props: Any = new Dynamic{}
-}
-
-class TelegramProps {
-  Token: String;
-}
-
-class Telegram extends Gateway {
-  Type = "Telegram"
-  Props: TelegramProps
-}
-
 class Settings {
   Model: String?
   Endpoint: String?
   Providers: Listing<String>
-  Gateways: Listing<Gateway>
 }
 
 class AssistantType {
@@ -268,6 +260,8 @@ class AssistantType {
   Knowledge: Listing<KnowledgeItem>
   Workspace: Mapping<String, Resource>
   Qapi: Listing<QapiType>
+  function ZipWithAgent(): String? =
+    Profile.Nickname
 }
 
 
