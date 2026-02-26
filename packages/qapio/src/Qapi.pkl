@@ -1,6 +1,7 @@
 
 open class Qapi {
   Type: String
+  Expression: String?
   Props: Any = new Dynamic {}
 }
 
@@ -13,29 +14,29 @@ open class Stage extends Qapi {
 
   function Take(count: Int): Stage =
     AddOperation("Take", new Dynamic {
-        Count = count
+      Count = count
     })
 
   function Select(lambda: String): Stage =
     AddOperation("Select", new Dynamic {
-        Expression = lambda
+      Expression = lambda
     })
 
   function Skip(count: Int): Stage =
     AddOperation("Skip", new Dynamic {
-        Count = count
+      Count = count
     })
 
   function Via(stage: Stage | String): Stage =
 
     if (stage is String)
-        AddOperation("Via", new Dynamic {
-          Expression = stage
-        })
-      else
-    AddOperation("Via", new Dynamic {
+      AddOperation("Via", new Dynamic {
+        Expression = stage
+      })
+    else
+      AddOperation("Via", new Dynamic {
         Stage = stage
-    })
+      })
 
   function Where(lambda: String): Stage =
     AddOperation("Where", new Dynamic {

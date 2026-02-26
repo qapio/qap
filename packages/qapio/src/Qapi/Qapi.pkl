@@ -1,0 +1,8 @@
+module Tdip.Qapio.Qapi
+extends "../Qaplet.pkl"
+
+class QapiProps {
+  Paths: Listing<String>
+}
+
+Props: QapiProps

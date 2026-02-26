@@ -1,0 +1,16 @@
+open module Tdip.Qapio.Qaplet
+
+class Qap {
+  Id: String
+  Module: String
+  Props: Any
+}
+
+class ContextData {
+  Extensions: Listing<Qap>
+}
+
+Id: String
+Context: ContextData = new ContextData {
+
+}

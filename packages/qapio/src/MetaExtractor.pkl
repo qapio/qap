@@ -1,4 +1,0 @@
-import "pkl:reflect"
-import "MyTest.pkl" as other
-
-otherName = other.getClass().toString()

@@ -1,349 +1,74 @@
-module com.qapio
-import "package://pkg.pkl-lang.org/pkl-pantry/org.json_schema@1.1.0#/JsonSchema.pkl"
+module Tdip.Qapio.Qaplet
+extends "Qaplet.pkl"
+import "Qaplet.pkl"
+import "Ui/Ui.pkl" as UiQap
+import "Tasks/Tasks.pkl" as TasksQap
+import "Qapi/Qapi.pkl" as QapiQap
+import "Assistant/Assistant.pkl" as AssistantQap
 
-import "mixins/IdProp.pkl"
 
-import "mixins/TasksProp.pkl"
-import "mixins/UiProp.pkl"
-import "mixins/MixinProp.pkl"
-import "mixins/DependenciesProp.pkl"
-import "mixins/ResourcesProp.pkl"
-import "mixins/AuthProp.pkl"
-import "mixins/MetricsProp.pkl" as MetricsProps
-import "Qapi.pkl" as Qapis
-
-import "pkl:reflect"
-
-local __file__ = let (uri = reflect.Module(this).uri) (
-  uri.split("/").takeLast(2)[0]
-  )
-
-local class ModelItem {
-  Model: String
+class ContextData {
+  Extensions: Listing<Qap>
 }
 
-class OpenAiHooksType {
-  OnRequest: String?
-  OnResponse: String?
-  Filter: String?
-}
+Ui: String?
+Tasks: TasksQap.TasksProps?
+Qapi: String?
+Assistant: AssistantQap.AssistantProps?
 
-class OpenAiSettings {
-  ApiKey: String
-  Models: Listing<ModelItem>
-  Hooks: OpenAiHooksType = new {}
-}
-
-
-class OpenAiConnection extends Qaplet {
-  Type: String = "OpenAiConnection"
-  Props: OpenAiSettings
-}
-
-
-open class Qaplet {
-  Type: String
-  Props: Any = new Dynamic{}
-  function ZipWithAgent(): Qapis.FlowStage =
-    new Qapis.FlowStage {
-      Type = "Victory"
-      Props = new Dynamic {
-
+local function GetQap(name: String, props: Any) =
+  if (name == "Ui")
+    new Qaplet.Qap {
+      Id = name
+      Module = "Tdip.Qapio.Ui"
+      Props = new UiQap.UiProps {
+        Paths {
+          props.toString()
+        }
       }
     }
-}
-
-class SpaceData {
-
-}
-
-class SpaceProps extends Qaplet {
-  Type = "com.qapio.SpaceProps"
-  Props = new SpaceData {}
-}
-
-
-class PropsData {
-  Qaplet: Qaplet = new SpaceProps {}
-  Auth: AuthProp.Props
-  Dependencies: Listing<String>
-}
-/*
-
-class IdentityType {
-  Name: String
-  Role: Listing<String>
-  Tone: Listing<String>
-}
-
-open class PropertyType {
-  Name: String?
-  Description: String?
-  Required: Boolean = true
-}
-
-class ContextProp {
-  Name: String?
-  Description: String?
-  Value: String
-}
-
-class StringProp extends PropertyType {
-  Default: String?
-}
-
-class NumberProp extends PropertyType {
-  Default: Number?
-  Min: Number?
-  Max: Number?
-}
-
-class IntegerProp extends PropertyType {
-  Default: Int?
-  Min: Int?
-  Max: Int?
-}
-
-class BooleanProp extends PropertyType {
-  Default: Boolean?
-}
-
-class ArrayProp extends PropertyType {
-  Default: Listing<Any>?
-  OneOf: Listing<Any>?
-  AnyOf: Listing<Any>?
-}
-
-class QapiDefinition {
-  Name: String?
-  Description: String?
-  Template: String
-  Properties: Listing<PropertyType>
-  Context: Listing<ContextProp>
-}
-
-class AssistantType {
-  Identity: IdentityType
-  Qapi: Listing<QapiDefinition>
-  Context: Listing<ContextProp>
-  Team: Listing<AssistantType>
-  Principles: Listing<String>
-}
-*/
-
-
-/*class AudienceType {
-  Background: Listing<String>
-  Success: Listing<String>
-  Environment: Listing<String>
-}*/
-
-
-class KnowledgeItem {
-  Name: String
-  Description: String
-  Tags: Listing<String>
-  Value: Resource
-}
-
-class ExemplarItem {
-  Name: String
-  Description: String
-  Tags: Listing<String>
-  Value: Resource
-}
-
-
-typealias JsonSchemaTypeName = "string" | "number" | "integer" | "boolean" | "object" | "array" | "null"
-
-open class PropertyType {
-  abstract Type: JsonSchemaTypeName;
-  Description: String?
-}
-
-
-class StringProp extends PropertyType {
-  Type: JsonSchemaTypeName = "string"
-  Default: String?
-}
-
-class NumberProp extends PropertyType {
-  Type: JsonSchemaTypeName = "number"
-  Default: Number?
-  Min: Number?
-  Max: Number?
-}
-
-class IntegerProp extends PropertyType {
-  Type: JsonSchemaTypeName = "integer"
-  Default: Int?
-  Min: Int?
-  Max: Int?
-}
-
-class BooleanProp extends PropertyType {
-  Type: JsonSchemaTypeName = "boolean"
-  Default: Boolean?
-}
-
-class ArrayProp extends PropertyType {
-  Type: JsonSchemaTypeName = "array"
-  Default: Listing<Any>?
-  Value: Listing<JsonSchemaTypeName> | JsonSchemaTypeName
-}
-
-typealias JsonSchemaType = JsonSchema.Schema
-
-typealias ResponseModeType = "Direct" | "Synthesized"
-
-class QapiType {
-  Name: String
-  Description: String
-  ResponseMode: ResponseModeType = "Direct"
-  Parameters: Mapping<String, (StringProp | NumberProp | IntegerProp | BooleanProp | ArrayProp | JsonSchemaType)>
-  Required: Listing<String>
-  Expression: String
-  Strict: Boolean = false
-}
-
-class ContextType {
-  Background: Listing<String>
-  SuccessCriteria: Listing<String>
-  Environment: Listing<String>
-}
-
-class IdentityType {
-  FirstName: String?
-  LastName: String?
-  AvatarUrl: String?
-  Nickname: String?
-  Title: String?
-  Email: String?
-  Phone: String?
-}
-
-class SuggestionType {
-  Title: String
-  Label: String
-  Prompt: String
-}
-
-class GreetingType {
-  Title: String
-  Label: String
-}
-
-class PanelsType {
-  Suggestions: Listing<SuggestionType>
-  Greetings: Listing<GreetingType>
-}
-
-class Settings {
-  Model: String?
-  Endpoint: String?
-  Providers: Listing<String>
-}
-
-class AssistantType {
-  Settings: Settings
-  Profile: IdentityType
-  Panels: PanelsType
-  Task: Listing<String>
-  Team: Listing<String>
-  Role: Listing<String>
-  Context: ContextType
-  Audience: Listing<String>
-  Format: Listing<String>
-  Tone: Listing<String>
-  Guardrails: Listing<String>
-  Exemplars: Listing<ExemplarItem>
-  Knowledge: Listing<KnowledgeItem>
-  Workspace: Mapping<String, Resource>
-  Qapi: Listing<QapiType>
-  function ZipWithAgent(): String? =
-    Profile.Nickname
-}
-
-
-class FunctionCall {
-  type: String = "function"
-  name: String
-  description: String
-  parameters: JsonSchemaType
-  strict: Boolean
-}
-
-
-
-function createParameter(parameter: StringProp | NumberProp | IntegerProp | BooleanProp | ArrayProp | JsonSchemaType ): JsonSchemaType =
-  if (parameter is JsonSchemaType)
-    parameter
-  else if (parameter.Type == "array")
-    new JsonSchemaType{type="array"; description = parameter.Description; items = new JsonSchemaType {type=parameter.Value};}
-  else new JsonSchemaType {type = parameter.Type; description = parameter.Description; }
-
-
-function createTool(qapi: QapiType): FunctionCall =
-  new FunctionCall {
-    name = qapi.Name
-    description = qapi.Description
-    parameters = new JsonSchemaType {
-      type = "object"
-      properties = qapi.Parameters.keys.toMap((e) -> e, (e) -> createParameter(qapi.Parameters[e])).toMapping()
-      required = qapi.Required
-      additionalProperties = !qapi.Strict
+  else if (name == "Tasks")
+    new Qaplet.Qap {
+      Id = name
+      Module = "Tdip.Qapio.Tasks"
+      Props = props
     }
-    strict = qapi.Strict
+
+  else if (name == "Qapi")
+    new Qaplet.Qap {
+      Id = name
+      Module = "Tdip.Qapio.Qapi"
+      Props = new QapiQap.QapiProps {
+        Paths {
+          props.toString()
+        }
+      }
+    }
+  else if (name == "Assistant")
+    new Qaplet.Qap {
+      Id = name
+      Module = "Tdip.Qapio.Assistant"
+      Props = props
+    }
+  else
+    new Qaplet.Qap {
+      Id = name
+      Module = name
+      Props = props
+    }
+
+local function GetExtensions(): Listing<Qap> =
+  new Listing {
+    for (p in this.toMap().entries.filter((t) -> t.key != "Id" && t.key != "Context" && t.value != null)) {
+      GetQap(p.key, p.value)
+    }
   }
 
-class SpaceType {
-  Files: Listing<String>
-  PreStart: String?
-  PostStop: String?
-}
-
-Id: IdProp.Props?
-Qapi: MixinProp.Props?
-Props: PropsData = new {
-  Qaplet = new SpaceProps {}
-}
-Tasks: TasksProp.Props
-Ui: UiProp.Props = new Listing<String> {}
-Resources: ResourcesProp.Props
-Dependencies: DependenciesProp.Props
-Assistant: AssistantType?
-Space: SpaceType
-Metrics: MetricsProps.Props
 output {
   value = new Dynamic {
-    ["Id"] = if (Id == null) __file__ else Id
-    ["Qapi"] = Qapi
-    ["Tasks"] = Tasks
-    ["Ui"] = if (Ui is String) List(Ui) else Ui
-    ["Resources"] = Resources
-    ["Dependencies"] = Dependencies
-    ["Space"] = Space
-    ["Props"] = Props
-    ["Instrumentation"] = Metrics
-    ["Assistant"] = if (Assistant == null) null else new Dynamic {
-      ["Settings"] = Assistant.Settings
-      ["Profile"] = Assistant.Profile
-      ["Panels"] = Assistant.Panels
-      ["Task"] = Assistant.Task
-      ["Team"] = Assistant.Team
-      ["Role"] = Assistant.Role
-      ["Context"] = Assistant.Context
-      ["Audience"] = Assistant.Audience
-      ["Format"] = Assistant.Format
-      ["Tone"] = Assistant.Tone
-      ["Guardrails"] = Assistant.Guardrails
-      ["Exemplars"] = Assistant.Exemplars
-      ["Knowledge"] = Assistant.Knowledge
-      ["Workspace"] = Assistant.Workspace
-      ["Qapi"] = Assistant.Qapi
-      ["OpenAi"] = new Dynamic {
-        ["Tools"] = Assistant.Qapi.toList().map((t) -> createTool(t))
-      }
+    Id = module.Id
+    Context = new ContextData {
+      Extensions = GetExtensions()
     }
   }
 }

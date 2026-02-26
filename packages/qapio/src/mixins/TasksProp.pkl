@@ -1,7 +1,0 @@
-class TaskItem {
-  Name: String?
-  Expression: String?
-  Trigger: String?
-}
-
-typealias  Props = Mapping<String, TaskItem>

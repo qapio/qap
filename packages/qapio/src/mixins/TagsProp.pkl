@@ -1,5 +1,0 @@
-typealias Tags = List<String>
-
-class Props {
-  Tags: Tags
-}

@@ -1,9 +1,0 @@
-module com.qapio
-
-class ProxyItem {
-  Path: String
-  Address: String
-}
-
-
-Proxies: Mapping<String, ProxyItem>

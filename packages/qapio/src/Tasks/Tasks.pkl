@@ -1,0 +1,11 @@
+module Tdip.Qapio.Tasks
+extends "../Qaplet.pkl"
+import "../Qapi.pkl"
+
+class TasksProps {
+  Name: String?
+  Expression: Qapi.Stage?
+  Trigger: Qapi.Stage?
+}
+
+Props: TasksProps

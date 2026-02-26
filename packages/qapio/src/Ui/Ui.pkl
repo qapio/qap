@@ -1,0 +1,8 @@
+module Tdip.Qapio.Ui
+extends "../Qaplet.pkl"
+
+class UiProps {
+  Paths: Listing<String>
+}
+
+Props: UiProps

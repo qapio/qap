@@ -20,12 +20,18 @@ function CombineLatest(sources: Listing<Stage>): Stage =
     }
   })
 
+function FromExpression(expression: String): Stage =
+  From(new SourceStage {
+    Type = expression.split("(").first
+    Expression = expression
+  })
+
 function From(stage: Stage): Stage =
   if (stage is SourceStage)
-      stage
-     else
-      new SourceStage {
-        Kind = "Source"
-        Type = stage.Type
-        Props = stage.Props
-      }
+    stage
+  else
+    new SourceStage {
+      Kind = "Source"
+      Type = stage.Type
+      Props = stage.Props
+    }

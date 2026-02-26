@@ -1,0 +1,90 @@
+module Tdip.Qapio.Assistant
+extends "../Qaplet.pkl"
+
+import "package://pkg.pkl-lang.org/pkl-pantry/org.json_schema@1.1.0#/JsonSchema.pkl"
+
+class Settings {
+  Model: String?
+  Endpoint: String?
+  Providers: Listing<String>
+}
+
+class Profile {
+  FirstName: String?
+  LastName: String?
+  AvatarUrl: String?
+  Nickname: String?
+  Title: String?
+  Email: String?
+  Phone: String?
+}
+
+class Suggestion {
+  Title: String
+  Label: String
+  Prompt: String
+}
+
+class Greeting {
+  Title: String
+  Label: String
+}
+
+class Panels {
+  Suggestions: Listing<Suggestion>
+  Greetings: Listing<Greeting>
+}
+
+class ContextType {
+  Background: Listing<String>
+  SuccessCriteria: Listing<String>
+  Environment: Listing<String>
+}
+
+class Knowledge {
+  Name: String
+  Description: String
+  Tags: Listing<String>
+  Value: Resource
+}
+
+class Exemplar {
+  Name: String
+  Description: String
+  Tags: Listing<String>
+  Value: Resource
+}
+
+typealias ResponseModeType = "Direct" | "Synthesized"
+
+typealias JsonSchemaType = JsonSchema.Schema
+
+class Qapi {
+  Name: String
+  Description: String
+  ResponseMode: ResponseModeType = "Direct"
+  Parameters: Mapping<String, JsonSchemaType>
+  Required: Listing<String>
+  Expression: String
+  Strict: Boolean = false
+}
+
+class AssistantProps {
+  Settings: Settings
+  Profile: Profile
+  Panels: Panels
+  Task: Listing<String>
+  Team: Listing<String>
+  Role: Listing<String>
+  Context: ContextType
+  Audience: Listing<String>
+  Format: Listing<String>
+  Tone: Listing<String>
+  Guardrails: Listing<String>
+  Exemplars: Listing<Exemplar>
+  Knowledge: Listing<Knowledge>
+  Workspace: Mapping<String, Resource>
+  Qapi: Listing<Qapi>
+}
+
+Props: AssistantProps

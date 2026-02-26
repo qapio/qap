@@ -1,1 +1,0 @@
-typealias Props = String(matches(Regex(#"(^[a-zA-Z_$][\w$]*$)"#)))

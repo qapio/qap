@@ -1,7 +1,0 @@
-class PythonProps {
-  Requirements: List<String>
-}
-
-class Props {
-  Python: PythonProps?
-}
