@@ -1,0 +1,7 @@
+module Tdip.Qapio.Qapio
+
+import "Qaplet.pkl"
+
+fixed Id = "Qapio"
+Workspaces: Mapping<String, String>
+Extensions: Listing<Qaplet.Qap>

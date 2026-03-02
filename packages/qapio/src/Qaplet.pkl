@@ -1,6 +1,6 @@
 open module Tdip.Qapio.Qaplet
 
-class Qap {
+open class Qap {
   Id: String
   Module: String
   Props: Any
