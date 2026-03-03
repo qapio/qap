@@ -1,0 +1,4 @@
+module Tdip.Qapio.Assistant.ChatClient
+extends "Qaplet.pkl"
+
+ApiToken: String

@@ -1,0 +1,22 @@
+module Tdip.Qapio.Screening.Screening
+
+extends "Qaplet.pkl"
+import "Qaplet.pkl"
+
+class Screening extends Qaplet.Qap {
+  Id = "Screening"
+  Module = "Tdip.Qapio.Screening.ScreeningModule"
+  Props = new Dynamic {
+
+  }
+}
+
+Factors: Listing<String>
+Universes: Listing<String>
+OnResult: String?
+DateChunkSize: Int?
+MemberChunkSize: Int?
+Concurrency: Int = 1
+IdleTimout: Int = 30
+
+

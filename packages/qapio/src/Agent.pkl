@@ -1,0 +1,14 @@
+module Tdip.Qapio.Assistant.Agent
+extends "Qaplet.pkl"
+import "package://pkg.pkl-lang.org/pkl-pantry/org.openapis.v3.contrib@1.1.0#/SchemaGenerator.pkl"
+
+Instructions: String = ""
+ResponseFormat: Class | Module | TypeAlias
+
+output {
+  renderer = new JsonRenderer {
+    converters {
+      [Class] = (c) -> SchemaGenerator.generate(c)
+    }
+  }
+}
