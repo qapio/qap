@@ -1,12 +1,15 @@
-module com.qapio
-import "Qapi.pkl"
+module Tdip.Qapio.Source
+extends "Qaplet.pkl"
 
-typealias Stage = Qapi.Stage
-typealias SourceStage = Qapi.SourceStage
+import "Qapi.pkl" as QapiModule
+
+typealias Stage = QapiModule.Stage
+typealias SourceStage = QapiModule.SourceStage
 
 function Tick(interval: Int): Stage =
   From(new SourceStage {
-    Type = "Source.Tick"
+    Endpoint = "Source"
+    Qapi = "Tick"
     Props = new Dynamic {
       Interval = interval
     }
@@ -14,7 +17,8 @@ function Tick(interval: Int): Stage =
 
 function CombineLatest(sources: Listing<Stage>): Stage =
   From(new SourceStage {
-    Type = "Source.CombineLatest"
+    Endpoint = "Source"
+    Qapi = "CombineLatest"
     Props = new Dynamic {
       Sources = sources
     }
@@ -22,8 +26,9 @@ function CombineLatest(sources: Listing<Stage>): Stage =
 
 function FromExpression(expression: String): Stage =
   From(new SourceStage {
-    Type = expression.split("(").first
-    Expression = expression
+    Endpoint = "Source"
+    Qapi = "FromExpression"
+    Props = expression
   })
 
 function From(stage: Stage): Stage =
@@ -31,7 +36,17 @@ function From(stage: Stage): Stage =
     stage
   else
     new SourceStage {
+      Endpoint = stage.Endpoint
       Kind = "Source"
-      Type = stage.Type
+      Qapi = stage.Qapi
       Props = stage.Props
     }
+
+function Single(value: Any): Stage =
+  From(new SourceStage {
+    Endpoint = "Source"
+    Qapi = "Single"
+    Props = value
+  })
+
+Qapi: Stage

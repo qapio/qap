@@ -1,15 +1,18 @@
 
-open class Qapi {
-  Type: String
-  Expression: String?
+
+open class QapiBase {
+  Qapi: String
   Props: Any = new Dynamic {}
+}
+open class Qapi extends QapiBase {
+  Endpoint: String
 }
 
 open class Stage extends Qapi {
   Kind: "Source" | "Flow" | "Sink"
   Operators: List<Operator>
-  function AddOperation(type: String, props: Any): Stage =
-    (this) {Operators = super.Operators.add(new Operator {Type = type Props = props})}
+  function AddOperation(name: String, props: Any): Stage =
+    (this) {Operators = super.Operators.add(new Operator {Qapi = name Props = props})}
 
 
   function Take(count: Int): Stage =
@@ -27,7 +30,7 @@ open class Stage extends Qapi {
       Count = count
     })
 
-  function Via(stage: Stage | String): Stage =
+  function Via(stage: FlowStage | String): Stage =
 
     if (stage is String)
       AddOperation("Via", new Dynamic {
@@ -44,7 +47,7 @@ open class Stage extends Qapi {
     })
 }
 
-open class Operator extends Qapi {
+open class Operator extends QapiBase {
 
 }
 

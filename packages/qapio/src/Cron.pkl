@@ -1,4 +1,4 @@
-module com.qapio
+module Tdip.Qapio.Cron
 import "Qapi.pkl"
 
 typealias Stage = Qapi.Stage
@@ -6,7 +6,8 @@ typealias SourceStage = Qapi.SourceStage
 
 function Cron(expression: String): SourceStage =
   new SourceStage {
-    Type = "Cron.From"
+    Endpoint = "Cron"
+    Qapi = "From"
     Props = new Dynamic {
       Expression = expression
     }

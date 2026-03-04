@@ -3,12 +3,12 @@ extends "Qaplet.pkl"
 import "package://pkg.pkl-lang.org/pkl-pantry/org.openapis.v3.contrib@1.1.0#/SchemaGenerator.pkl"
 
 Instructions: String = ""
-ResponseFormat: Class | Module | TypeAlias
+ResponseFormat: Class?
 
 output {
   renderer = new JsonRenderer {
     converters {
-      [Class] = (c) -> SchemaGenerator.generate(c)
+      [Class] = (c) -> if (c != null) SchemaGenerator.generate(c) else null
     }
   }
 }
