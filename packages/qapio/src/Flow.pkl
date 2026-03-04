@@ -1,4 +1,4 @@
-module Tdip.Qapio.Stages.Flow.FlowStage
+open module Tdip.Qapio.Stages.Flow.FlowStage
 
 extends "Qaplet.pkl"
 

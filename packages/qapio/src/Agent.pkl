@@ -1,14 +1,35 @@
 module Tdip.Qapio.Assistant.Agent
 extends "Qaplet.pkl"
+import "QapiTemplate.pkl"
+import "pkl:reflect"
+
 import "package://pkg.pkl-lang.org/pkl-pantry/org.openapis.v3.contrib@1.1.0#/SchemaGenerator.pkl"
+
+class AiTool {
+  Name: String
+  Description: String?
+  Qapi: QapiTemplate
+}
 
 Instructions: String = ""
 ResponseFormat: Class?
+Tools: Listing<AiTool>
+
+function GetSchema(m: QapiTemplate) =
+  let (schema = SchemaGenerator.generate(m))
+    (schema) {
+      properties = schema.properties.toMap().entries.filter((t) -> t.key != "Qapi").toMap((t) -> t.key, (t) -> t.value).toMap().toMapping()
+      required = schema.required.toList().filter((t) -> t != "Qapi").toListing()
+    }
 
 output {
   renderer = new JsonRenderer {
     converters {
       [Class] = (c) -> if (c != null) SchemaGenerator.generate(c) else null
+      ["Qapi"] = (c) -> if (c != null) new Dynamic {
+        Uri = reflect.Module(c).uri
+        RequestSchema = GetSchema(c)}
+      else null
     }
   }
 }

@@ -1,0 +1,5 @@
+open module Tdip.Qapio.QapiTemplate
+
+import "Source.pkl"
+
+Qapi: Source.SourceStage
