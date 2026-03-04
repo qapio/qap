@@ -1,5 +1,3 @@
-
-
 open class QapiBase {
   Qapi: String
   Props: Any = new Dynamic {}
@@ -11,50 +9,82 @@ open class Qapi extends QapiBase {
 open class Stage extends Qapi {
   Kind: "Source" | "Flow" | "Sink"
   Operators: List<Operator>
-  function AddOperation(name: String, props: Any): Stage =
-    (this) {Operators = super.Operators.add(new Operator {Qapi = name Props = props})}
 
-
-  function Take(count: Int): Stage =
-    AddOperation("Take", new Dynamic {
-      Count = count
-    })
-
-  function Select(lambda: String): Stage =
-    AddOperation("Select", new Dynamic {
-      Expression = lambda
-    })
-
-  function Skip(count: Int): Stage =
-    AddOperation("Skip", new Dynamic {
-      Count = count
-    })
-
-  function Via(stage: FlowStage | String): Stage =
-
-    if (stage is String)
-      AddOperation("Via", new Dynamic {
-        Expression = stage
-      })
-    else
-      AddOperation("Via", new Dynamic {
-        Stage = stage
-      })
-
-  function Where(lambda: String): Stage =
-    AddOperation("Where", new Dynamic {
-      Expression = lambda
-    })
 }
 
 open class Operator extends QapiBase {
 
 }
 
-class FlowStage extends Stage {
+/*class FlowStage extends Stage {
   Kind = "Flow"
-}
+  function AddOperation(name: String, props: Any): FlowStage =
+    (this) {Operators = super.Operators.add(new Operator {Qapi = name Props = props})}
 
+
+  function Take(count: Int): FlowStage =
+    AddOperation("Take", new Dynamic {
+      Count = count
+    })
+
+  function Select(lambda: String): FlowStage =
+    AddOperation("Select", new Dynamic {
+      Expression = lambda
+    })
+
+  function Skip(count: Int): FlowStage =
+    AddOperation("Skip", new Dynamic {
+      Count = count
+    })
+
+  function Via(stage: FlowStage | String): FlowStage =
+
+    if (stage is String)
+      AddOperation("Via", new Dynamic {
+        Expression = stage
+      })
+    else
+      AddOperation("Via", stage)
+
+  function Where(lambda: String): FlowStage =
+    AddOperation("Where", new Dynamic {
+      Expression = lambda
+    })
+}*/
+
+/*
 class SourceStage extends Stage {
   Kind = "Source"
-}
+  function AddOperation(name: String, props: Any): SourceStage =
+    (this) {Operators = super.Operators.add(new Operator {Qapi = name Props = props})}
+
+
+  function Take(count: Int): SourceStage =
+    AddOperation("Take", new Dynamic {
+      Count = count
+    })
+
+  function Select(lambda: String): SourceStage =
+    AddOperation("Select", new Dynamic {
+      Expression = lambda
+    })
+
+  function Skip(count: Int): SourceStage =
+    AddOperation("Skip", new Dynamic {
+      Count = count
+    })
+
+  function Via(stage: FlowStage | String): SourceStage =
+
+    if (stage is String)
+      AddOperation("Via", new Dynamic {
+        Expression = stage
+      })
+    else
+      AddOperation("Via", stage)
+
+  function Where(lambda: String): SourceStage =
+    AddOperation("Where", new Dynamic {
+      Expression = lambda
+    })
+}*/

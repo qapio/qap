@@ -1,13 +1,13 @@
 module Tdip.Qapio.Assistant.ChatClient
 extends "Qaplet.pkl"
 import "Agent.pkl"
-import "Qapi.pkl"
+import "FlowStage.pkl"
 
 ApiToken: String
 Model: String?
 
-function Create(agent: Agent | String): Qapi.FlowStage =
-  new Qapi.FlowStage {
+function Create(agent: Agent | String): FlowStage.FlowStage =
+  new FlowStage.FlowStage {
     Endpoint = module.Id
     Qapi = "Create"
     Props = if (agent is Agent) agent.Id else agent

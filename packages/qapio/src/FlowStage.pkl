@@ -1,0 +1,39 @@
+import "Qapi.pkl"
+
+typealias Operator = Qapi.Operator
+
+class FlowStage extends Qapi.Stage {
+  Kind = "Flow"
+  function AddOperation(name: String, props: Any): FlowStage =
+    (this) {Operators = super.Operators.add(new Operator {Qapi = name Props = props})}
+
+
+  function Take(count: Int): FlowStage =
+    AddOperation("Take", new Dynamic {
+      Count = count
+    })
+
+  function Select(lambda: String): FlowStage =
+    AddOperation("Select", new Dynamic {
+      Expression = lambda
+    })
+
+  function Skip(count: Int): FlowStage =
+    AddOperation("Skip", new Dynamic {
+      Count = count
+    })
+
+  function Via(stage: FlowStage | String): FlowStage =
+
+    if (stage is String)
+      AddOperation("Via", new Dynamic {
+        Expression = stage
+      })
+    else
+      AddOperation("Via", stage)
+
+  function Where(lambda: String): FlowStage =
+    AddOperation("Where", new Dynamic {
+      Expression = lambda
+    })
+}

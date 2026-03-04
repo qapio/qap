@@ -1,0 +1,7 @@
+module Tdip.Qapio.Stages.Flow.FlowStage
+
+extends "Qaplet.pkl"
+
+import "FlowStage.pkl" as FlowStageModule
+
+Qapi: FlowStageModule.FlowStage
