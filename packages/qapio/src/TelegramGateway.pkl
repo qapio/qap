@@ -1,0 +1,12 @@
+module Tdip.Qapio.Assistant.TelegramGateway
+
+extends "Qaplet.pkl"
+
+class ClientOptions {
+  Endpoint: String
+  Model: String?
+}
+
+Token: String
+Endpoint: String
+Client: ClientOptions
