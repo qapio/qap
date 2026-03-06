@@ -15,3 +15,5 @@ Id: String = reflect.Module(module).name
 Context: ContextData = new ContextData {
 
 }
+
+function Uri(fileName: String): Uri = read(fileName).uri

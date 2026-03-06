@@ -8,7 +8,7 @@ import "package://pkg.pkl-lang.org/pkl-pantry/org.openapis.v3.contrib@1.1.0#/Sch
 class AiTool {
   Name: String
   Description: String?
-  Qapi: QapiTemplate
+  Qapi: QapiTemplate | String
 }
 
 Instructions: String = ""
@@ -22,14 +22,23 @@ function GetSchema(m: QapiTemplate) =
       required = schema.required.toList().filter((t) -> t != "Qapi").toListing()
     }
 
+local function GetQapi(c: QapiTemplate | Uri) =
+  if (c == null)
+    null
+    else if (c is QapiTemplate)
+    new Dynamic {
+      Uri = reflect.Module(c).uri
+      RequestSchema = GetSchema(c)} else
+    new Dynamic {
+      Uri = c
+      ResponseFormat = null
+    }
+
 output {
   renderer = new JsonRenderer {
     converters {
       [Class] = (c) -> if (c != null) SchemaGenerator.generate(c) else null
-      ["Qapi"] = (c) -> if (c != null) new Dynamic {
-        Uri = reflect.Module(c).uri
-        RequestSchema = GetSchema(c)}
-      else null
+      ["Qapi"] = (c) -> GetQapi(c)
     }
   }
 }

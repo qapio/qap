@@ -1,6 +1,8 @@
 module Tdip.Qapio.Assistant.TelegramGateway
 
 extends "Qaplet.pkl"
+import "Qaplet.pkl"
+
 
 class ClientOptions {
   Endpoint: String
@@ -10,3 +12,14 @@ class ClientOptions {
 Token: String
 Endpoint: String
 Client: ClientOptions
+
+function Create(endpoint: Module, token: String, opts: ClientOptions): Qaplet.Qap =
+  new {
+    Id = "TelegramGateway"
+    Module = "Tdip.Qapio.Assistant.TelegramGateway"
+    Props = new Dynamic {
+      Endpoint = endpoint.getProperty("Id")
+      Token = token
+      Client = opts
+    }
+  }
