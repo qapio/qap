@@ -39,8 +39,10 @@ local function GetQap(name: String, props: Any) =
       Id = name
       Module = "Tdip.Qapio.Qapi"
       Props = new QapiQap.QapiProps {
-        Paths {
-          props.toString()
+        new {
+          Name = ""
+          Description = ""
+          Uri = props.toString()
         }
       }
     }

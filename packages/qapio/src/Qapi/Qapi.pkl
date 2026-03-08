@@ -1,8 +1,12 @@
 module Tdip.Qapio.Qapi
 extends "../Qaplet.pkl"
 
-class QapiProps {
-  Paths: Listing<String>
+class QapiEntry {
+  Name: String(matches(Regex(#"^[_\p{L}][_\p{L}\p{Nd}\p{Pc}\p{Mn}\p{Mc}\p{Cf}]*$"#)))
+  Description: String?
+  Uri: Uri
 }
+
+typealias QapiProps = Listing<QapiEntry>
 
 Props: QapiProps
