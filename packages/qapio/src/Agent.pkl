@@ -1,14 +1,14 @@
-module Tdip.Qapio.Assistant.Agent
+open module Tdip.Qapio.Assistant.Agent
 extends "Qaplet.pkl"
 import "QapiTemplate.pkl"
 import "pkl:reflect"
-import "Qapi/Qapi.pkl"
+import "Qapi/Qapi.pkl" as TheQapi
 import "package://pkg.pkl-lang.org/pkl-pantry/org.openapis.v3.contrib@1.1.0#/SchemaGenerator.pkl"
 
 
 Instructions: String = ""
 ResponseFormat: Class?
-Qapi: Qapi.QapiProps
+Qapi: TheQapi.QapiProps
 
 function GetSchema(m: QapiTemplate) =
   let (schema = SchemaGenerator.generate(m))
