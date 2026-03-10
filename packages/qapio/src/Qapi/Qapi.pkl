@@ -1,10 +1,12 @@
 module Tdip.Qapio.Qapi
 extends "../Qaplet.pkl"
 
+typealias Reference = Uri | String
+
 class QapiEntry {
   Name: String(matches(Regex(#"^[_\p{L}][_\p{L}\p{Nd}\p{Pc}\p{Mn}\p{Mc}\p{Cf}]*$"#)))
   Description: String?
-  Uri: Uri
+  Reference: Reference
 }
 
 typealias QapiProps = Listing<QapiEntry>

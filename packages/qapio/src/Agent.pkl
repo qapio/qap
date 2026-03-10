@@ -2,13 +2,12 @@ open module Tdip.Qapio.Assistant.Agent
 extends "Qaplet.pkl"
 import "QapiTemplate.pkl"
 import "pkl:reflect"
-import "Qapi/Qapi.pkl" as TheQapi
+import "Qapi/Qapi.pkl"
 import "package://pkg.pkl-lang.org/pkl-pantry/org.openapis.v3.contrib@1.1.0#/SchemaGenerator.pkl"
-
 
 Instructions: String = ""
 ResponseFormat: Class?
-Qapi: TheQapi.QapiProps
+ToolProviders: Qapi.QapiProps
 
 function GetSchema(m: QapiTemplate) =
   let (schema = SchemaGenerator.generate(m))
@@ -33,7 +32,6 @@ output {
   renderer = new JsonRenderer {
     converters {
       [Class] = (c) -> if (c != null) SchemaGenerator.generate(c) else null
-      ["Qapi"] = (c) -> GetQapi(c)
     }
   }
 }
