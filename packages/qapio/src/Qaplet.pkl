@@ -8,6 +8,8 @@ open class Qap {
 }
 
 class ContextData {
+  Name: String?
+  Description: String?
   Extensions: Listing<Qap>
 }
 
