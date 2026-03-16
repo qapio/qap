@@ -15,6 +15,15 @@ function Tick(interval: Int): SourceStage =
     }
   })
 
+function FromCron(cron: String): SourceStage =
+  From(new SourceStage {
+    Endpoint = "Source"
+    Qapi = "FromCron"
+    Props = new Dynamic {
+      Expression = cron
+    }
+  })
+
 function CombineLatest(sources: Listing<SourceStage>): SourceStage =
   From(new SourceStage {
     Endpoint = "Source"

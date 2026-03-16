@@ -1,14 +1,33 @@
 open module Tdip.Qapio.Assistant.Agent
+
 extends "Qaplet.pkl"
 import "package://pkg.pkl-lang.org/pkl-pantry/org.openapis.v3.contrib@1.1.0#/SchemaGenerator.pkl"
 
-Instructions: String = ""
+class AgentInstruction {
+  Role: Listing<String>
+  Task: Listing<String>
+  Format: Listing<String>
+  Guardrails: Listing<String>
+}
+
+Instructions: String | AgentInstruction = ""
 ResponseFormat: Class?
 ToolProviders: Listing<String>
 
 output {
   renderer = new JsonRenderer {
     converters {
+      [AgentInstruction] = (c) ->
+        (
+          (
+            ("# Agent Instructions\n")
+              + if (c.Task.length > 0) "## Task\n\(c.Task.join("\n"))\n" else ""
+          )
+            + (if (c.Role.length > 0) "\n## Role\n\(c.Role.join("\n"))\n" else "")
+            + (if (c.Format.length > 0) "\n## Format\n\(c.Format.join("\n"))\n" else "")
+            + (if (c.Guardrails.length > 0) "\n## Guardrails\n\(c.Guardrails.join("\n"))\n" else "")
+        )
+
       [Class] = (c) -> if (c != null) SchemaGenerator.generate(c) else null
     }
   }

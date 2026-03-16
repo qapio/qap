@@ -2,7 +2,7 @@ module Tdip.Qapio.Assistant.TelegramGateway
 
 extends "Qaplet.pkl"
 import "Qaplet.pkl"
-
+import "FlowStage.pkl"
 
 class ClientOptions {
   Endpoint: String
@@ -12,6 +12,15 @@ class ClientOptions {
 Token: String
 Endpoint: String
 Client: ClientOptions
+
+function Send(chat: String): FlowStage.FlowStage =
+  new {
+    Endpoint = module.Id
+    Qapi = "SendMessage"
+    Props = new Dynamic {
+      Chat = chat
+    }
+  }
 
 function Create(endpoint: Module, token: String, opts: ClientOptions): Qaplet.Qap =
   new {

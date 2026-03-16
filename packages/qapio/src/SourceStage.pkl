@@ -26,6 +26,9 @@ class SourceStage extends Qapi.Stage {
       Count = count
     })
 
+  function SwitchMap(source: SourceStage): SourceStage =
+    AddOperation("SwitchMap", source)
+
   function Via(stage: Flow | FlowStage.FlowStage | String): SourceStage =
 
     if (stage is String)
