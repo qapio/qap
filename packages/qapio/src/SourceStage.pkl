@@ -1,7 +1,6 @@
 import "Qapi.pkl"
-import "Flow.pkl"
 import "FlowStage.pkl"
-
+import "RunnableGraph.pkl"
 typealias Operator = Qapi.Operator
 
 
@@ -9,7 +8,6 @@ class SourceStage extends Qapi.Stage {
   Kind = "Source"
   function AddOperation(name: String, props: Any): SourceStage =
     (this) {Operators = super.Operators.add(new Operator {Qapi = name Props = props})}
-
 
   function Take(count: Int): SourceStage =
     AddOperation("Take", new Dynamic {
@@ -29,14 +27,12 @@ class SourceStage extends Qapi.Stage {
   function SwitchMap(source: SourceStage): SourceStage =
     AddOperation("SwitchMap", source)
 
-  function Via(stage: Flow | FlowStage.FlowStage | String): SourceStage =
+  function Via(stage: FlowStage.FlowStage | String): SourceStage =
 
     if (stage is String)
       AddOperation("Via", new Dynamic {
         Expression = stage
       })
-    else if (stage is Flow)
-        AddOperation("Via", stage.Qapi)
     else
       AddOperation("Via", stage)
 

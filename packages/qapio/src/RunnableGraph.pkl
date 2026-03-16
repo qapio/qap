@@ -1,0 +1,8 @@
+import "Qapi.pkl"
+
+typealias Operator = Qapi.Operator
+
+
+class RunnableGraph extends Qapi.Stage {
+  Kind = "RunnableGraph"
+}
