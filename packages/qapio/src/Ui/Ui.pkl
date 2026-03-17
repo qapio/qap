@@ -1,4 +1,4 @@
-module Tdip.Qapio.Ui
+open module Tdip.Qapio.Ui
 extends "../Qaplet.pkl"
 
 class UiProps {

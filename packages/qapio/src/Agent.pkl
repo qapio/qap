@@ -1,6 +1,8 @@
 open module Tdip.Qapio.Assistant.Agent
 
 extends "Qaplet.pkl"
+import "FlowStage.pkl"
+
 import "package://pkg.pkl-lang.org/pkl-pantry/org.openapis.v3.contrib@1.1.0#/SchemaGenerator.pkl"
 
 class AgentInstruction {
@@ -13,6 +15,17 @@ class AgentInstruction {
 Instructions: String | AgentInstruction = ""
 ResponseFormat: Class?
 ToolProviders: Listing<String>
+Handoffs: Listing<String>
+
+function CreateChatAgent(endpoint: String, model: String): FlowStage.FlowStage =
+  new {
+    Endpoint = module.Id
+    Qapi = "Run"
+    Props = new Dynamic {
+      Endpoint = endpoint
+      Model = model
+    }
+  }
 
 output {
   renderer = new JsonRenderer {

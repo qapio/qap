@@ -5,7 +5,7 @@ typealias Operator = Qapi.Operator
 class FlowStage extends Qapi.Stage {
   Kind = "Flow"
   function AddOperation(name: String, props: Any): FlowStage =
-    (this) {Operators = super.Operators.add(new Operator {Qapi = name Props = props})}
+    (this) {Operators = super.Operators.toList().add(new Operator {Qapi = name Props = props}).toListing()}
 
 
   function Take(count: Int): FlowStage =

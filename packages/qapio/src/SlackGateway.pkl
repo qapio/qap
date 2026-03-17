@@ -1,4 +1,4 @@
-open module Tdip.Qapio.Assistant.TelegramGateway
+open module Tdip.Qapio.Assistant.SlackGateway
 
 extends "Qaplet.pkl"
 import "Qaplet.pkl"
@@ -24,8 +24,8 @@ function Send(chat: String): FlowStage.FlowStage =
 
 function Create(endpoint: Module, token: String, opts: ClientOptions): Qaplet.Qap =
   new {
-    Id = "TelegramGateway"
-    Module = "Tdip.Qapio.Assistant.TelegramGateway"
+    Id = "SlackGateway"
+    Module = "Tdip.Qapio.Assistant.SlackGateway"
     Props = new Dynamic {
       Endpoint = endpoint.getProperty("Id")
       Token = token
