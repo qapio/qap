@@ -1,4 +1,4 @@
-open module Tdip.Qapio.Assistant.TelegramGateway
+open module Tdip.Qapio.Telegram.Gateway
 
 extends "Qaplet.pkl"
 import "Qaplet.pkl"

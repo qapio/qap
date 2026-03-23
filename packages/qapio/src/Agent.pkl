@@ -1,4 +1,4 @@
-open module Tdip.Qapio.Assistant.Agent
+open module Tdip.Qapio.Agent.Agent
 
 extends "Qaplet.pkl"
 import "FlowStage.pkl"
@@ -14,7 +14,7 @@ class AgentInstruction {
 
 Instructions: String | AgentInstruction = ""
 ResponseFormat: Class?
-ToolProviders: Listing<String>
+ContextProviders: Listing<String>
 Handoffs: Listing<String>
 
 function CreateChatAgent(endpoint: String, model: String): FlowStage.FlowStage =

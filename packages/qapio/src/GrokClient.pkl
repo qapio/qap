@@ -1,4 +1,5 @@
-open module Tdip.Qapio.Assistant.ChatClient
+open module Tdip.Qapio.Grok.Client
+
 extends "Qaplet.pkl"
 import "Agent.pkl"
 import "FlowStage.pkl"
