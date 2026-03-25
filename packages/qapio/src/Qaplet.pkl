@@ -12,6 +12,8 @@ open class Qap {
 class ContextData {
   Name: String?
   Description: String?
+  Instructions: String?
+  Providers: Listing<String>
   Resources: Listing<Resource>
   PreStart: Listing<SourceStage.SourceStage>
   Extensions: Listing<Qap>

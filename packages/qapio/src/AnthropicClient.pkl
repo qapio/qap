@@ -1,0 +1,23 @@
+open module Tdip.Qapio.Anthropic.Client
+
+extends "Qaplet.pkl"
+import "Agent.pkl"
+import "FlowStage.pkl"
+import "SourceStage.pkl"
+
+ApiToken: String
+Model: String?
+
+function Create(agent: Agent | String): FlowStage.FlowStage =
+  new FlowStage.FlowStage {
+    Endpoint = module.Id
+    Qapi = "CreateChatClientAgent"
+    Props = if (agent is Agent) agent.Id else agent
+  }
+
+function GetResponse(message: String): SourceStage.SourceStage =
+  new SourceStage.SourceStage {
+    Endpoint = module.Id
+    Qapi = "CreateResponse"
+    Props = message
+  }
