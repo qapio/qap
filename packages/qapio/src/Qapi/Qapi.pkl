@@ -1,4 +1,4 @@
-module Tdip.Qapio.Qapi
+open module Tdip.Qapio.Qapi
 extends "../Qaplet.pkl"
 
 typealias Reference = Uri | String

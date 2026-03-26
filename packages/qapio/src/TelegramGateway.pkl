@@ -3,15 +3,28 @@ open module Tdip.Qapio.Telegram.Gateway
 extends "Qaplet.pkl"
 import "Qaplet.pkl"
 import "FlowStage.pkl"
+import "SourceStage.pkl"
 
 class ClientOptions {
   Endpoint: String
   Model: String?
 }
 
+class Account {
+  Id: String
+}
+
 Token: String
 Endpoint: String
 Client: ClientOptions
+Users: Listing<Account>
+
+function Broadcast(message: Any): FlowStage.FlowStage =
+  new {
+    Endpoint = module.Id
+    Qapi = "Broadcast"
+    Props = message
+  }
 
 function Send(chat: String): FlowStage.FlowStage =
   new {
@@ -19,6 +32,15 @@ function Send(chat: String): FlowStage.FlowStage =
     Qapi = "SendMessage"
     Props = new Dynamic {
       Chat = chat
+    }
+  }
+
+function GetTranscript(userId: String): SourceStage.SourceStage =
+  new {
+    Endpoint = "\(module.Id).Chat_\(userId)"
+    Qapi = "ChatTranscript"
+    Props = new Dynamic {
+
     }
   }
 

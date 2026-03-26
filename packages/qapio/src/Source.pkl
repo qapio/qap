@@ -29,7 +29,7 @@ function CombineLatest(sources: Listing<SourceStage>): SourceStage =
     Endpoint = "Source"
     Qapi = "CombineLatest"
     Props = new Dynamic {
-      Sources = sources
+      Expressions = sources
     }
   })
 
