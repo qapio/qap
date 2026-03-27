@@ -8,11 +8,18 @@ import "SourceStage.pkl"
 ApiToken: String
 Model: String?
 
-function Create(agent: Agent | String): FlowStage.FlowStage =
+class AgentProps {
+  Instructions: String
+  ResponseFormat: Class?
+  ContextProviders: Listing<String>
+  ApprovalFlow: FlowStage.FlowStage?
+}
+
+function AsAgent(agent: AgentProps): FlowStage.FlowStage =
   new FlowStage.FlowStage {
     Endpoint = module.Id
-    Qapi = "CreateChatClientAgent"
-    Props = if (agent is Agent) agent.Id else agent
+    Qapi = "CreateChatAgent"
+    Props = agent
   }
 
 function GetResponse(message: String): SourceStage.SourceStage =
