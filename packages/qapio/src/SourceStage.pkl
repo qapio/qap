@@ -41,3 +41,4 @@ class SourceStage extends Qapi.Stage {
       Expression = lambda
     })
 }
+

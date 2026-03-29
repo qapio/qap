@@ -4,6 +4,8 @@ extends "Qaplet.pkl"
 import "Qaplet.pkl"
 import "FlowStage.pkl"
 import "SourceStage.pkl"
+import "Qapi.pkl"
+import "Source.pkl"
 
 class ClientOptions {
   Endpoint: String
@@ -14,10 +16,18 @@ class Account {
   Id: String
 }
 
+class Command {
+  Name: String
+  Description: String
+  Command: SourceStage.SourceStage
+}
+
 Token: String
-Endpoint: String
+Endpoint: String?
 Client: ClientOptions
 Users: Listing<Account>
+Commands: Listing<Command>
+
 
 function Broadcast(message: Any): FlowStage.FlowStage =
   new {

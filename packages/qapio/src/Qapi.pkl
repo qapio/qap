@@ -12,6 +12,8 @@ open class Stage extends Qapi {
 
 }
 
+
+
 open class Operator extends QapiBase {
 
 }

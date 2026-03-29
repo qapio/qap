@@ -1,0 +1,13 @@
+import "Source.pkl"
+
+function Handoff(endpoint: String): Source.SourceStage =
+  Source.FromAction("Handoff", new Dynamic {
+      Endpoint = endpoint
+      Message = ""
+  })
+
+function HandoffWithPrompt(endpoint: String, message: String): Source.SourceStage =
+  Source.FromAction("Handoff", new Dynamic {
+    Endpoint = endpoint
+    Message = message
+  })

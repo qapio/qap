@@ -58,4 +58,22 @@ function Single(value: Any): SourceStage =
     Props = value
   })
 
+function FromAction(type: String, payload: Any): SourceStage =
+  From(new SourceStage {
+    Endpoint = "Source"
+    Qapi = "FromAction"
+    Props = new Dynamic {
+      Type = type
+      Payload = payload
+    }
+  })
+
+open class Action {
+  Type: String
+  Payload: Any = new Dynamic {
+
+  }
+}
+
+
 Qapi: SourceStage
