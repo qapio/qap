@@ -20,6 +20,7 @@ class Command {
   Name: String
   Description: String
   Command: SourceStage.SourceStage
+  Trigger: SourceStage.SourceStage?
 }
 
 Token: String

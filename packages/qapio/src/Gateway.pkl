@@ -1,13 +1,36 @@
 import "Source.pkl"
 
-function Handoff(endpoint: String): Source.SourceStage =
-  Source.FromAction("Handoff", new Dynamic {
-      Endpoint = endpoint
-      Message = ""
+function Delegate(endpoint: String, message: String): Source.SourceStage =
+  Source.FromAction("Delegate", new Dynamic {
+    Endpoint = endpoint
+    Message = message
   })
 
-function HandoffWithPrompt(endpoint: String, message: String): Source.SourceStage =
+function HandoffWithMsg(endpoint: String, message: String): Source.SourceStage =
   Source.FromAction("Handoff", new Dynamic {
     Endpoint = endpoint
     Message = message
+  })
+
+function Schedule(trigger: Source.SourceStage): Source.SourceStage =
+  Source.FromAction("Schedule", new Dynamic {
+    Trigger = trigger
+    RequireApproval = false
+  })
+
+function ScheduleWithApproval(trigger: Source.SourceStage): Source.SourceStage =
+  Source.FromAction("Schedule", new Dynamic {
+    Trigger = trigger
+    RequireApproval = true
+  })
+
+function Handoff(endpoint: String): Source.SourceStage =
+  Source.FromAction("Handoff", new Dynamic {
+    Endpoint = endpoint
+    Message = ""
+  })
+
+function WebApp(uri: Uri): Source.SourceStage =
+  Source.FromAction("WebApp", new Dynamic {
+    Uri = uri
   })
