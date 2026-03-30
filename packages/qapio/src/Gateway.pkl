@@ -1,4 +1,5 @@
 import "Source.pkl"
+import "FlowStage.pkl"
 
 function Delegate(endpoint: String, message: String): Source.SourceStage =
   Source.FromAction("Delegate", new Dynamic {
@@ -12,17 +13,14 @@ function HandoffWithMsg(endpoint: String, message: String): Source.SourceStage =
     Message = message
   })
 
-function Schedule(trigger: Source.SourceStage): Source.SourceStage =
-  Source.FromAction("Schedule", new Dynamic {
-    Trigger = trigger
-    RequireApproval = false
-  })
-
-function ScheduleWithApproval(trigger: Source.SourceStage): Source.SourceStage =
-  Source.FromAction("Schedule", new Dynamic {
-    Trigger = trigger
-    RequireApproval = true
-  })
+function ApprovalFlow(endpoint: String, userId: String): FlowStage.FlowStage =
+  new {
+    Endpoint = endpoint
+    Qapi = "DataFilter"
+    Props = new Dynamic {
+      Chat = userId
+    }
+  }
 
 function Handoff(endpoint: String): Source.SourceStage =
   Source.FromAction("Handoff", new Dynamic {

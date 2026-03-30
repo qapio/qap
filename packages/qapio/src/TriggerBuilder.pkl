@@ -1,0 +1,36 @@
+import "Source.pkl"
+
+class TriggerBuilder {
+
+  Source: Source.SourceStage
+  Id: String?
+  Description: String?
+
+  function WithSchedule(source: Source.SourceStage): TriggerBuilder =
+    (this) {Source = source}
+
+  function WithIdentity(id: String): TriggerBuilder =
+    (this) {Id = id}
+
+  function WithDescription(description: String): TriggerBuilder =
+    (this) {Description = description}
+
+  function Build(): Source.SourceStage =
+    let (source = Source)
+      let (id = Id)
+        let (description = Description)
+    new {
+      Endpoint = "TriggerBuilder"
+      Qapi = "Create"
+      Props = new Dynamic {
+        Source = source
+        Id = id
+        Description = description
+      }
+    }
+}
+
+function Create(): TriggerBuilder =
+  new {
+
+  }

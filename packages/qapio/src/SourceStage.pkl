@@ -40,5 +40,12 @@ class SourceStage extends Qapi.Stage {
     AddOperation("Where", new Dynamic {
       Expression = lambda
     })
+
+  function Create(endpoint: String, qapi: String, props: Any): SourceStage =
+    new {
+      Endpoint = endpoint
+      Qapi = qapi
+      Props = props
+    }
 }
 
