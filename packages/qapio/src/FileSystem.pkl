@@ -1,0 +1,34 @@
+import "SourceStage.pkl"
+import "FlowStage.pkl"
+
+class FileSystem {
+
+  Endpoint: String
+
+  function ReadAllText(path: String): SourceStage.SourceStage =
+    let (endpoint = Endpoint)
+
+    new {
+      Endpoint = "\(endpoint).FileSystem"
+      Qapi = "ReadAllText"
+      Props = new Dynamic {
+        Path = path
+      }
+    }
+
+  function WriteAllText(path: String): FlowStage.FlowStage =
+    let (endpoint = Endpoint)
+
+      new {
+        Endpoint = "\(endpoint).FileSystem"
+        Qapi = "WriteAllText"
+        Props = new Dynamic {
+          Path = path
+        }
+      }
+}
+
+function For(endpoint: String): FileSystem =
+  new FileSystem {
+    Endpoint = endpoint
+  }

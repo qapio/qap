@@ -9,7 +9,7 @@ open class Qapi extends QapiBase {
 open class Stage extends Qapi {
   Kind: "Source" | "Flow" | "Sink" | "RunnableGraph"
   Operators: Listing<Operator>
-
+  Middlewares: Listing<Stage>
 }
 
 

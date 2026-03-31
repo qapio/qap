@@ -41,6 +41,9 @@ class SourceStage extends Qapi.Stage {
       Expression = lambda
     })
 
+  function Use(middleware: FlowStage.FlowStage) =
+    (this) {Middlewares = super.Middlewares.toList().add(middleware).toListing()}
+
   function Create(endpoint: String, qapi: String, props: Any): SourceStage =
     new {
       Endpoint = endpoint

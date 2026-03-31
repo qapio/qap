@@ -14,6 +14,7 @@ class ClientOptions {
 
 class Account {
   Id: String
+  ContextProviders: Listing<String>
 }
 
 class Command {

@@ -7,6 +7,13 @@ function Delegate(endpoint: String, message: String): Source.SourceStage =
     Message = message
   })
 
+function Delegate(endpoint: String, message: String): Source.SourceStage =
+  Source.FromAction("Delegate", new Dynamic {
+    Endpoint = endpoint
+    Message = message
+  })
+
+
 function HandoffWithMsg(endpoint: String, message: String): Source.SourceStage =
   Source.FromAction("Handoff", new Dynamic {
     Endpoint = endpoint
