@@ -7,13 +7,6 @@ function Delegate(endpoint: String, message: String): Source.SourceStage =
     Message = message
   })
 
-function Delegate(endpoint: String, message: String): Source.SourceStage =
-  Source.FromAction("Delegate", new Dynamic {
-    Endpoint = endpoint
-    Message = message
-  })
-
-
 function HandoffWithMsg(endpoint: String, message: String): Source.SourceStage =
   Source.FromAction("Handoff", new Dynamic {
     Endpoint = endpoint
@@ -24,10 +17,10 @@ function ApprovalFlow(endpoint: String, userId: String): FlowStage.FlowStage =
   new {
     Endpoint = endpoint
     Qapi = "DataFilter"
-    Props = new Dynamic {
+    Args = new Listing { new Dynamic {
       Chat = userId
     }
-  }
+  }}
 
 function Handoff(endpoint: String): Source.SourceStage =
   Source.FromAction("Handoff", new Dynamic {

@@ -11,10 +11,10 @@ class FileSystem {
     new {
       Endpoint = "\(endpoint).FileSystem"
       Qapi = "ReadAllText"
-      Props = new Dynamic {
+      Args = new Listing { new Dynamic {
         Path = path
       }
-    }
+    }}
 
   function WriteAllText(path: String): FlowStage.FlowStage =
     let (endpoint = Endpoint)
@@ -22,10 +22,10 @@ class FileSystem {
       new {
         Endpoint = "\(endpoint).FileSystem"
         Qapi = "WriteAllText"
-        Props = new Dynamic {
+        Args = new Listing { new Dynamic {
           Path = path
         }
-      }
+      }}
 }
 
 function For(endpoint: String): FileSystem =

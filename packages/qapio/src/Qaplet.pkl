@@ -28,9 +28,9 @@ function Identify(): SourceStage.SourceStage =
   new {
     Endpoint = "\(module.Id).Qap"
     Qapi = "Identify"
-    Props = new Dynamic {
+    Args = new Listing { new Dynamic {
 
     }
-  }
+  }}
 
 function Uri(fileName: String): Uri = read(fileName).uri

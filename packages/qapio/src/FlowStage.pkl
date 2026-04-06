@@ -4,36 +4,46 @@ typealias Operator = Qapi.Operator
 
 class FlowStage extends Qapi.Stage {
   Kind = "Flow"
-  function AddOperation(name: String, props: Any): FlowStage =
-    (this) {Operators = super.Operators.toList().add(new Operator {Qapi = name Props = props}).toListing()}
+  function AddOperation(name: String, props: Listing<Any>): FlowStage =
+    (this) {Operators = super.Operators.toList().add(new Operator {Qapi = name Args = props}).toListing()}
 
 
   function Take(count: Int): FlowStage =
-    AddOperation("Take", new Dynamic {
+    AddOperation("Take", new Listing { new Dynamic {
       Count = count
-    })
+    }})
+
+  function AsChatResponse(): FlowStage =
+    AddOperation("AsChatResponse",  new Listing { new Dynamic {
+
+    }})
+
+  function WithApproval(): FlowStage =
+    AddOperation("WithApproval",new Listing { new Dynamic {
+
+    }})
 
   function Select(lambda: String): FlowStage =
-    AddOperation("Select", new Dynamic {
+    AddOperation("Select",new Listing { new Dynamic {
       Expression = lambda
-    })
+    }})
 
   function Skip(count: Int): FlowStage =
-    AddOperation("Skip", new Dynamic {
+    AddOperation("Skip",new Listing { new Dynamic {
       Count = count
-    })
+    }})
 
   function Via(stage: FlowStage | String): FlowStage =
 
     if (stage is String)
-      AddOperation("Via", new Dynamic {
+      AddOperation("Via", new Listing {new Dynamic {
         Expression = stage
-      })
+      }})
     else
-      AddOperation("Via", stage)
+      AddOperation("Via",new Listing { stage})
 
   function Where(lambda: String): FlowStage =
-    AddOperation("Where", new Dynamic {
+    AddOperation("Where", new Listing {new Dynamic {
       Expression = lambda
-    })
+    }})
 }

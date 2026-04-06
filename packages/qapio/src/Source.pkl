@@ -10,34 +10,34 @@ function Tick(interval: Int): SourceStage =
   From(new SourceStage {
     Endpoint = "Source"
     Qapi = "Tick"
-    Props = new Dynamic {
+    Args = new Listing { new Dynamic {
       Interval = interval
     }
-  })
+  }})
 
 function FromCron(cron: String): SourceStage =
   From(new SourceStage {
     Endpoint = "Source"
     Qapi = "FromCron"
-    Props = new Dynamic {
+    Args = new Listing { new Dynamic {
       Expression = cron
     }
-  })
+  }})
 
 function CombineLatest(sources: Listing<SourceStage>): SourceStage =
   From(new SourceStage {
     Endpoint = "Source"
     Qapi = "CombineLatest"
-    Props = new Dynamic {
+    Args = new Listing { new Dynamic {
       Expressions = sources
     }
-  })
+  }})
 
 function FromExpression(expression: String): SourceStage =
   From(new SourceStage {
     Endpoint = "Source"
     Qapi = "FromExpression"
-    Props = expression
+    Args = new Listing { expression }
   })
 
 function From(stage: SourceStage): SourceStage =
@@ -48,25 +48,25 @@ function From(stage: SourceStage): SourceStage =
       Endpoint = stage.Endpoint
       Kind = "Source"
       Qapi = stage.Qapi
-      Props = stage.Props
+      Args = stage.Args
     }
 
 function Single(value: Any): SourceStage =
   From(new SourceStage {
     Endpoint = "Source"
     Qapi = "Single"
-    Props = value
+    Args = new Listing { value }
   })
 
 function FromAction(type: String, payload: Any): SourceStage =
   From(new SourceStage {
     Endpoint = "Source"
     Qapi = "FromAction"
-    Props = new Dynamic {
+    Args = new Listing { new Dynamic {
       Type = type
       Payload = payload
     }
-  })
+  }})
 
 open class Action {
   Type: String

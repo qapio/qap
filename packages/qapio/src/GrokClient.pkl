@@ -19,12 +19,12 @@ function AsAgent(agent: AgentProps): FlowStage.FlowStage =
   new FlowStage.FlowStage {
     Endpoint = module.Id
     Qapi = "CreateChatAgent"
-    Props = agent
+    Args = new Listing { agent }
   }
 
 function GetResponse(message: String): SourceStage.SourceStage =
   new SourceStage.SourceStage {
     Endpoint = module.Id
     Qapi = "CreateResponse"
-    Props = message
+    Args = new Listing { message }
   }

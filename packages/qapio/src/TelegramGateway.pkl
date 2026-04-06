@@ -35,25 +35,25 @@ function Broadcast(message: Any): FlowStage.FlowStage =
   new {
     Endpoint = module.Id
     Qapi = "Broadcast"
-    Props = message
+    Args = new Listing { message }
   }
 
 function Send(chat: String): FlowStage.FlowStage =
   new {
     Endpoint = module.Id
     Qapi = "SendMessage"
-    Props = new Dynamic {
+    Args = new Listing { new Dynamic {
       Chat = chat
     }
-  }
+  }}
 
 function GetTranscript(userId: String): SourceStage.SourceStage =
   new {
     Endpoint = "\(module.Id).Chat_\(userId)"
     Qapi = "ChatTranscript"
-    Props = new Dynamic {
+    Args = new Listing { new Dynamic {
 
-    }
+    }}
   }
 
 function Create(endpoint: Module, token: String, opts: ClientOptions): Qaplet.Qap =

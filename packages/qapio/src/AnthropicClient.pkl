@@ -12,12 +12,12 @@ function Create(agent: Agent | String): FlowStage.FlowStage =
   new FlowStage.FlowStage {
     Endpoint = module.Id
     Qapi = "CreateChatClientAgent"
-    Props = if (agent is Agent) agent.Id else agent
+    Args = if (agent is Agent) new Listing {agent.Id} else new Listing {agent}
   }
 
 function GetResponse(message: String): SourceStage.SourceStage =
   new SourceStage.SourceStage {
     Endpoint = module.Id
     Qapi = "CreateResponse"
-    Props = message
+    Args = new Listing {message}
   }

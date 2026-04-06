@@ -6,49 +6,54 @@ typealias Operator = Qapi.Operator
 
 class SourceStage extends Qapi.Stage {
   Kind = "Source"
-  function AddOperation(name: String, props: Any): SourceStage =
-    (this) {Operators = super.Operators.toList().add(new Operator {Qapi = name Props = props}).toListing()}
+  function AddOperation(name: String, props: Listing<Any>): SourceStage =
+    (this) {Operators = super.Operators.toList().add(new Operator {Qapi = name Args = props}).toListing()}
 
   function Take(count: Int): SourceStage =
-    AddOperation("Take", new Dynamic {
-      Count = count
+    AddOperation("Take", new Listing {
+      new Dynamic {
+        Count = count
+      }
     })
 
   function Select(lambda: String): SourceStage =
-    AddOperation("Select", new Dynamic {
+    AddOperation("Select", new Listing {new Dynamic {
       Expression = lambda
-    })
+    }})
 
   function Skip(count: Int): SourceStage =
-    AddOperation("Skip", new Dynamic {
+    AddOperation("Skip", new Listing {new Dynamic {
       Count = count
-    })
+    }})
+
+  function AsChatResponse(): SourceStage =
+    AddOperation("AsChatResponse", new Listing {new Dynamic {
+
+    }})
+
+  function WithApproval(): SourceStage =
+    AddOperation("WithApproval", new Listing {new Dynamic {
+
+    }})
 
   function SwitchMap(source: SourceStage): SourceStage =
-    AddOperation("SwitchMap", source)
+    AddOperation("SwitchMap", new Listing {source})
 
   function Via(stage: FlowStage.FlowStage | String): SourceStage =
 
     if (stage is String)
-      AddOperation("Via", new Dynamic {
+      AddOperation("Via", new Listing {new Dynamic {
         Expression = stage
-      })
+      }})
     else
-      AddOperation("Via", stage)
+      AddOperation("Via", new Listing {stage})
 
   function Where(lambda: String): SourceStage =
-    AddOperation("Where", new Dynamic {
+    AddOperation("Where", new Listing {new Dynamic {
       Expression = lambda
-    })
+    }})
 
   function Use(middleware: FlowStage.FlowStage) =
     (this) {Middlewares = super.Middlewares.toList().add(middleware).toListing()}
-
-  function Create(endpoint: String, qapi: String, props: Any): SourceStage =
-    new {
-      Endpoint = endpoint
-      Qapi = qapi
-      Props = props
-    }
 }
 

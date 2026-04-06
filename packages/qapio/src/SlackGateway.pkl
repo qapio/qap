@@ -17,10 +17,10 @@ function Send(chat: String): FlowStage.FlowStage =
   new {
     Endpoint = module.Id
     Qapi = "SendMessage"
-    Props = new Dynamic {
+    Args = new Listing { new Dynamic {
       Chat = chat
     }
-  }
+  }}
 
 function Create(endpoint: Module, token: String, opts: ClientOptions): Qaplet.Qap =
   new {

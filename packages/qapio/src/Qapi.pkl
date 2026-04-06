@@ -1,6 +1,6 @@
 open class QapiBase {
   Qapi: String
-  Props: Any = new Dynamic {}
+  Args: Listing<Any>
 }
 open class Qapi extends QapiBase {
   Endpoint: String

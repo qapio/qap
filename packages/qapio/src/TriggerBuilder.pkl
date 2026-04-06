@@ -22,12 +22,12 @@ class TriggerBuilder {
     new {
       Endpoint = "TriggerBuilder"
       Qapi = "Create"
-      Props = new Dynamic {
+      Args = new Listing { new Dynamic {
         Source = source
         Id = id
         Description = description
       }
-    }
+    }}
 }
 
 function Create(): TriggerBuilder =

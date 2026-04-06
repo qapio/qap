@@ -21,11 +21,11 @@ function CreateChatAgent(endpoint: String, model: String): FlowStage.FlowStage =
   new {
     Endpoint = module.Id
     Qapi = "Run"
-    Props = new Dynamic {
+    Args = new Listing { new Dynamic {
       Endpoint = endpoint
       Model = model
     }
-  }
+  }}
 
 output {
   renderer = new JsonRenderer {
