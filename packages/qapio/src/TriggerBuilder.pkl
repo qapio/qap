@@ -1,3 +1,5 @@
+open module Tdip.Qapio.TriggerBuilder
+
 import "Source.pkl"
 
 class TriggerBuilder {

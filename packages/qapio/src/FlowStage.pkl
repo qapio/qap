@@ -8,6 +8,11 @@ class FlowStage extends Qapi.Stage {
     (this) {Operators = super.Operators.toList().add(new Operator {Qapi = name Args = props}).toListing()}
 
 
+  function Log(message: String): FlowStage =
+    AddOperation("Log", new Listing {new Dynamic {
+      Message = message
+    }})
+
   function Take(count: Int): FlowStage =
     AddOperation("Take", new Listing { new Dynamic {
       Count = count

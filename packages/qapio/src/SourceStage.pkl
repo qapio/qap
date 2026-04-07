@@ -26,6 +26,11 @@ class SourceStage extends Qapi.Stage {
       Count = count
     }})
 
+  function Log(message: String): SourceStage =
+    AddOperation("Log", new Listing {new Dynamic {
+      Message = message
+    }})
+
   function AsChatResponse(): SourceStage =
     AddOperation("AsChatResponse", new Listing {new Dynamic {
 
