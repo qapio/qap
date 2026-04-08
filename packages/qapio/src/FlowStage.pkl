@@ -13,6 +13,11 @@ class FlowStage extends Qapi.Stage {
       Message = message
     }})
 
+  function Emit(type: String): FlowStage =
+    AddOperation("WithEvent", new Listing {new Dynamic {
+      Type = type
+    }})
+
   function Take(count: Int): FlowStage =
     AddOperation("Take", new Listing { new Dynamic {
       Count = count
