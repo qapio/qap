@@ -4,6 +4,7 @@ extends "Qaplet.pkl"
 import "Agent.pkl"
 import "FlowStage.pkl"
 import "SourceStage.pkl"
+import "package://pkg.pkl-lang.org/pkl-pantry/org.openapis.v3.contrib@1.1.0#/SchemaGenerator.pkl"
 
 ApiToken: String
 Model: String?
@@ -19,7 +20,14 @@ function AsAgent(agent: AgentProps): FlowStage.FlowStage =
   new FlowStage.FlowStage {
     Endpoint = module.Id
     Qapi = "CreateChatAgent"
-    Args = new Listing { agent }
+    Args = new Listing {
+      new Dynamic {
+        Instructions = agent.Instructions
+        ApprovalFlow = agent.ApprovalFlow
+        ResponseFormat = if (agent.ResponseFormat != null) SchemaGenerator.generate(agent.ResponseFormat) else null
+        ContextProviders = agent.ContextProviders
+      }
+    }
   }
 
 function GetResponse(message: String): SourceStage.SourceStage =
