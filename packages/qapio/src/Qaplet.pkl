@@ -13,7 +13,7 @@ open class Qap {
 class ContextData {
   Name: String?
   Description: String?
-  Agent: Agent.AgentOptions?
+  AgentOptions: Agent.AgentOptions?
   Edges: Listing<String>
   Resources: Listing<Resource>
   PreStart: Listing<SourceStage.SourceStage>

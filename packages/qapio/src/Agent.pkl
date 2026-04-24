@@ -8,17 +8,6 @@ class AgentInstruction {
   Guardrails: Listing<String>
 }
 
-class AgentOptions {
-  Instructions: String?
-  Role: String?
-  Tasks: Listing<Task>
-  Format: String?
-  Guardrails: Listing<Guardrail>
-  Exemplars: Listing<Exemplar>
-  Tone: String?
-  ResponseFormat: Schema?
-  Profile: Profile?
-}
 
 class Profile {
   Title: String?
@@ -49,56 +38,94 @@ class Guardrail extends Entry {
 
 }
 
+class ResourceItem extends Entry {
 
-class AgentBuilder {
+}
+
+
+class AgentOptions {
   Instructions: String?
-  Role: String
+  Role: String?
   Tasks: Listing<Task>
-  Format: String
+  Format: String?
   Guardrails: Listing<Guardrail>
   Exemplars: Listing<Exemplar>
+  Resources: Listing<ResourceItem>
   Tone: String?
   ResponseFormat: Schema?
   Profile: Profile?
 
-  function WithRole(role: String): AgentBuilder = (this) {
+  function WithRole(role: String): AgentOptions = (this) {
     Role = role
   }
 
-  function WithTone(tone: String): AgentBuilder = (this) {
+  function WithTone(tone: String): AgentOptions = (this) {
     Tone = tone
   }
 
-  function AddTask(task: Task): AgentBuilder = (this) {
+  function AddTask(task: Task): AgentOptions = (this) {
     Tasks = outer.Tasks.toList().add(task).toListing()
   }
 
-  function WithFormat(format: String): AgentBuilder = (this) {
+  function AddTasks(tasks: Listing<Task>): AgentOptions = (this) {
+    Tasks = new Listing<Task> {
+      ...outer.Tasks
+      ...tasks
+    }
+  }
+
+  function AddResource(resource: ResourceItem): AgentOptions = (this) {
+    Resources = outer.Resources.toList().add(resource).toListing()
+  }
+
+  function AddResources(resources: Listing<ResourceItem>): AgentOptions = (this) {
+    Resources = new Listing<ResourceItem> {
+      ...outer.Resources
+      ...resources
+    }
+  }
+
+  function WithFormat(format: String): AgentOptions = (this) {
     Format = format
   }
 
-  function AddExemplar(exemplar: Exemplar): AgentBuilder = (this) {
+  function AddExemplar(exemplar: Exemplar): AgentOptions = (this) {
     Exemplars = outer.Exemplars.toList().add(exemplar).toListing()
   }
 
-  function AddGuardrail(guardrail: Guardrail): AgentBuilder = (this) {
+
+  function AddExemplars(exemplars: Listing<Exemplar>): AgentOptions = (this) {
+    Exemplars = new Listing<Exemplar> {
+      ...outer.Exemplars
+      ...exemplars
+    }
+  }
+
+  function AddGuardrail(guardrail: Guardrail): AgentOptions = (this) {
     Guardrails = outer.Guardrails.toList().add(guardrail).toListing()
   }
 
-  function WithProfile(profile: Profile): AgentBuilder = (this) {
+  function AddGuardrails(guardrails: Listing<Guardrail>): AgentOptions = (this) {
+    Guardrails = new Listing<Guardrail> {
+      ...outer.Guardrails
+      ...guardrails
+    }
+  }
+
+  function WithProfile(profile: Profile): AgentOptions = (this) {
     Profile = profile
   }
 
-  function WithResponseFormat(responseFormat: Class): AgentBuilder = (this) {
+  function WithResponseFormat(responseFormat: Class): AgentOptions = (this) {
     ResponseFormat = SchemaGenerator.generate(responseFormat)
   }
 }
 
-function Create() = new AgentBuilder {
+function CreateOptions() = new AgentOptions {
 
 }
 
-function FromInstuction(instruction: String) = new AgentBuilder {
+function CreateInstruction(instruction: String) = new AgentOptions {
   Instructions = instruction
 }
 
