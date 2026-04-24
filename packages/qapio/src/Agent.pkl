@@ -1,9 +1,5 @@
-open module Tdip.Qapio.Agent.Agent
-
-extends "Qaplet.pkl"
-import "FlowStage.pkl"
-
 import "package://pkg.pkl-lang.org/pkl-pantry/org.openapis.v3.contrib@1.1.0#/SchemaGenerator.pkl"
+import "package://pkg.pkl-lang.org/pkl-pantry/org.openapis.v3@2.2.0#/Schema.pkl"
 
 class AgentInstruction {
   Role: Listing<String>
@@ -12,36 +8,97 @@ class AgentInstruction {
   Guardrails: Listing<String>
 }
 
-Instructions: String | AgentInstruction = ""
-ResponseFormat: Class?
-ContextProviders: Listing<String>
-Handoffs: Listing<String>
+class AgentOptions {
+  Instructions: String?
+  Role: String?
+  Tasks: Listing<Task>
+  Format: String?
+  Guardrails: Listing<Guardrail>
+  Exemplars: Listing<Exemplar>
+  Tone: String?
+  ResponseFormat: Schema?
+  Profile: Profile?
+}
 
-function CreateChatAgent(endpoint: String, model: String): FlowStage.FlowStage =
-  new {
-    Endpoint = module.Id
-    Qapi = "Run"
-    Args = new Listing { new Dynamic {
-      Endpoint = endpoint
-      Model = model
-    }
-  }}
+class Profile {
+  Title: String?
+  FirstName: String?
+  LastName: String?
+  AvatarUrl: String?
+  Nickname: String?
+  Email: String?
+  Phone: String?
+  WebsiteUrl: String?
+}
 
-output {
-  renderer = new JsonRenderer {
-    converters {
-      [AgentInstruction] = (c) ->
-        (
-          (
-            ("# Agent Instructions\n")
-              + if (c.Task.length > 0) "## Task\n\(c.Task.join("\n"))\n" else ""
-          )
-            + (if (c.Role.length > 0) "\n## Role\n\(c.Role.join("\n"))\n" else "")
-            + (if (c.Format.length > 0) "\n## Format\n\(c.Format.join("\n"))\n" else "")
-            + (if (c.Guardrails.length > 0) "\n## Guardrails\n\(c.Guardrails.join("\n"))\n" else "")
-        )
+open class Entry {
+  Name: String
+  Description: String
+  Value: String
+}
 
-      [Class] = (c) -> if (c != null) SchemaGenerator.generate(c) else null
-    }
+class Task extends Entry {
+
+}
+
+class Exemplar extends Entry {
+
+}
+
+class Guardrail extends Entry {
+
+}
+
+
+class AgentBuilder {
+  Instructions: String?
+  Role: String
+  Tasks: Listing<Task>
+  Format: String
+  Guardrails: Listing<Guardrail>
+  Exemplars: Listing<Exemplar>
+  Tone: String?
+  ResponseFormat: Schema?
+  Profile: Profile?
+
+  function WithRole(role: String): AgentBuilder = (this) {
+    Role = role
+  }
+
+  function WithTone(tone: String): AgentBuilder = (this) {
+    Tone = tone
+  }
+
+  function AddTask(task: Task): AgentBuilder = (this) {
+    Tasks = outer.Tasks.toList().add(task).toListing()
+  }
+
+  function WithFormat(format: String): AgentBuilder = (this) {
+    Format = format
+  }
+
+  function AddExemplar(exemplar: Exemplar): AgentBuilder = (this) {
+    Exemplars = outer.Exemplars.toList().add(exemplar).toListing()
+  }
+
+  function AddGuardrail(guardrail: Guardrail): AgentBuilder = (this) {
+    Guardrails = outer.Guardrails.toList().add(guardrail).toListing()
+  }
+
+  function WithProfile(profile: Profile): AgentBuilder = (this) {
+    Profile = profile
+  }
+
+  function WithResponseFormat(responseFormat: Class): AgentBuilder = (this) {
+    ResponseFormat = SchemaGenerator.generate(responseFormat)
   }
 }
+
+function Create() = new AgentBuilder {
+
+}
+
+function FromInstuction(instruction: String) = new AgentBuilder {
+  Instructions = instruction
+}
+
