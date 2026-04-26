@@ -1,0 +1,7 @@
+open module Tdip.Qapio.Gateway.Gmail
+
+extends "Qaplet.pkl"
+
+CredentialsPath: String
+
+
