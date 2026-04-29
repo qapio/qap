@@ -1,0 +1,25 @@
+import "FlowStage.pkl"
+import "Agent.pkl"
+
+class WorkflowBuilder {
+  Agents: Listing<Agent.ChatClientAgent>
+
+  function AddStep(step: Agent.ChatClientAgent): WorkflowBuilder =
+    (this) {Agents = outer.Agents.toList().add(step).toListing()}
+
+  function Build(): FlowStage.FlowStage =
+    let (agents = Agents)
+    new {
+      Endpoint = "WorkflowBuilder"
+      Qapi = "BuildSequential"
+      Args {
+        new Dynamic {
+          Agents = agents
+        }
+      }
+    }
+}
+
+function BuildSequential(agents: Listing<Agent.ChatClientAgent>) = new WorkflowBuilder {
+  Agents = agents
+}

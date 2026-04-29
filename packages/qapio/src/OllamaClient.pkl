@@ -8,6 +8,15 @@ import "SourceStage.pkl"
 Uri: String
 Model: String?
 
+function AsChatClientAgent(options: Agent.AgentOptions): Agent.ChatClientAgent =
+  new {
+    ChatClient = new {
+      Endpoint = module.Id
+      Model = module.Model
+    }
+    Options = options
+  }
+
 function Create(agent: Agent | String): FlowStage.FlowStage =
   new FlowStage.FlowStage {
     Endpoint = module.Id

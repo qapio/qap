@@ -42,6 +42,15 @@ class ResourceItem extends Entry {
 
 }
 
+class ChatClient {
+  Endpoint: String
+  Model: String?
+}
+
+class ChatClientAgent {
+  Options: AgentOptions
+  ChatClient: ChatClient
+}
 
 class AgentOptions {
   Instructions: String?
@@ -54,6 +63,7 @@ class AgentOptions {
   Tone: String?
   ResponseFormat: Schema?
   Profile: Profile?
+  ContextProviders: Listing<String>
 
   function WithRole(role: String): AgentOptions = (this) {
     Role = role
@@ -71,6 +81,17 @@ class AgentOptions {
     Tasks = new Listing<Task> {
       ...outer.Tasks
       ...tasks
+    }
+  }
+
+  function AddContextProvider(endpoint: String): AgentOptions = (this) {
+    ContextProviders = outer.ContextProviders.toList().add(endpoint).toListing()
+  }
+
+  function AddContextProviders(endpoints: Listing<String>): AgentOptions = (this) {
+    ContextProviders = new Listing<String> {
+      ...outer.ContextProviders
+      ...endpoints
     }
   }
 
