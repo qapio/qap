@@ -2,6 +2,7 @@ open module Tdip.Qapio.Qaplet
 import "pkl:reflect"
 import "SourceStage.pkl"
 import "Agent.pkl"
+import "AccessControl.pkl"
 
 open class Qap {
   Id: String
@@ -14,6 +15,7 @@ class ContextData {
   Name: String?
   Description: String?
   AgentOptions: Agent.AgentOptions?
+  AccessControl: AccessControl.AccessControlProps?
   Edges: Listing<String>
   Resources: Listing<Resource>
   PreStart: Listing<SourceStage.SourceStage>

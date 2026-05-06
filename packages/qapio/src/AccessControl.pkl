@@ -1,0 +1,304 @@
+/// P2P access-control configuration schema.
+open module Tdip.Qapio.Auth.AccessControl
+extends "Qaplet.pkl"
+
+typealias AccessEffect = "Allow" | "Deny"
+
+typealias AccessControlMode = "Enforcing" | "Permissive"
+
+typealias RequestOrigin = "ExternalHttps" | "InternalP2p" | "Local"
+
+function Create(): AccessControlProps = new {
+
+}
+
+typealias AuthenticationLevel =
+  "None" |
+  "Anonymous" |
+  "NodeAuthenticated" |
+  "UserAuthenticated" |
+  "UserAndNodeAuthenticated" |
+  "DelegatedCapability"
+
+
+/// If false, access control fails closed.
+Enabled: Boolean = true
+
+/// Configuration schema version.
+Version: Int = 1
+
+/// Effect used when no rule matches.
+DefaultEffect: AccessEffect = "Deny"
+
+/// Operating mode for this access-control policy.
+Mode: AccessControlMode = "Enforcing"
+
+/// Principal declarations.
+Principals: PrincipalDefinitions = new {}
+
+/// Role definitions keyed by role name.
+RoleDefinitions: Mapping<String, RoleDefinition> = new {}
+
+/// Assignments from principals to roles.
+RoleAssignments: RoleAssignmentsType = new {}
+
+/// Access rules evaluated by the policy.
+Rules: Listing<AccessRule> = new {}
+
+class AccessControlProps {
+  function Build(): Qap = new {
+    Id = "AccessControl"
+    Module = "Tdip.Qapio.Auth.AccessControl"
+    Props = outer
+  }
+
+  function Permissive() =
+    (this) {Mode = "Permissive"}
+
+  function AllowAnonymous() =
+    (this) {Principals = outer.Principals.AllowAnonymous()}
+  /// If false, access control fails closed.
+  Enabled: Boolean = true
+
+  /// Configuration schema version.
+  Version: Int = 1
+
+  /// Effect used when no rule matches.
+  DefaultEffect: AccessEffect = "Deny"
+
+  /// Operating mode for this access-control policy.
+  Mode: AccessControlMode = "Enforcing"
+
+  /// Principal declarations.
+  Principals: PrincipalDefinitions = new {}
+
+  /// Role definitions keyed by role name.
+  RoleDefinitions: Mapping<String, RoleDefinition> = new {}
+
+  /// Assignments from principals to roles.
+  RoleAssignments: RoleAssignmentsType = new {}
+
+  /// Access rules evaluated by the policy.
+  Rules: Listing<AccessRule> = new {}
+}
+
+class PrincipalDefinitions {
+  /// Anonymous/public principal settings.
+  Anonymous: AnonymousPrincipalDefinition = new {}
+
+  /// User principals keyed by user id.
+  Users: Mapping<String, UserPrincipalDefinition> = new {}
+
+  /// Node principals keyed by node id.
+  Nodes: Mapping<String, NodePrincipalDefinition> = new {}
+
+  /// Group principals keyed by group id.
+  Groups: Mapping<String, GroupPrincipalDefinition> = new {}
+
+  /// Service account principals keyed by service account id.
+  ServiceAccounts: Mapping<String, ServiceAccountPrincipalDefinition> = new {}
+
+  function AllowAnonymous(): PrincipalDefinitions =
+    (this) {Anonymous = new {
+      Enabled = true
+    }}
+}
+
+class AnonymousPrincipalDefinition {
+  /// Whether anonymous access is enabled.
+  Enabled: Boolean = false
+
+  /// Logical anonymous principal id.
+  Id: String = "anonymous"
+
+  /// Optional description.
+  Description: String?
+}
+
+class UserPrincipalDefinition {
+  /// Human-readable display name.
+  DisplayName: String?
+
+  /// Whether this user is enabled.
+  Enabled: Boolean = true
+
+  /// Whether this user must be authenticated.
+  AuthenticationRequired: Boolean = true
+
+  /// Public keys or key references associated with this user.
+  PublicKeys: Listing<String> = new {}
+
+  /// Groups this user belongs to.
+  Groups: Listing<String> = new {}
+
+  /// Additional user metadata.
+  Metadata: Mapping<String, String> = new {}
+}
+
+class NodePrincipalDefinition {
+  /// Human-readable display name.
+  DisplayName: String?
+
+  /// Whether this node is enabled.
+  Enabled: Boolean = true
+
+  /// Optional trust level label.
+  TrustLevel: String?
+
+  /// Public keys or key references associated with this node.
+  PublicKeys: Listing<String> = new {}
+
+  /// Known addresses for this node.
+  Addresses: Listing<String> = new {}
+
+  /// Additional node metadata.
+  Metadata: Mapping<String, String> = new {}
+}
+
+class GroupPrincipalDefinition {
+  /// Human-readable display name.
+  DisplayName: String?
+
+  /// User ids that are members of this group.
+  Members: Listing<String> = new {}
+
+  /// Additional group metadata.
+  Metadata: Mapping<String, String> = new {}
+}
+
+class ServiceAccountPrincipalDefinition {
+  /// Human-readable display name.
+  DisplayName: String?
+
+  /// Whether this service account is enabled.
+  Enabled: Boolean = true
+
+  /// Public keys or key references associated with this service account.
+  PublicKeys: Listing<String> = new {}
+
+  /// Additional service account metadata.
+  Metadata: Mapping<String, String> = new {}
+}
+
+class RoleDefinition {
+  /// Optional role description.
+  Description: String?
+
+  /// Operation patterns granted by this role.
+  Permissions: Listing<String> = new {}
+
+  /// Role names inherited by this role.
+  Inherits: Listing<String> = new {}
+
+  /// Additional role metadata.
+  Metadata: Mapping<String, String> = new {}
+}
+
+class RoleAssignmentsType {
+  /// Roles assigned to anonymous access.
+  Anonymous: Listing<String> = new {}
+
+  /// Roles assigned to users, keyed by user id.
+  Users: Mapping<String, Listing<String>> = new {}
+
+  /// Roles assigned to nodes, keyed by node id or node wildcard pattern.
+  Nodes: Mapping<String, Listing<String>> = new {}
+
+  /// Roles assigned to groups, keyed by group id.
+  Groups: Mapping<String, Listing<String>> = new {}
+
+  /// Roles assigned to service accounts, keyed by service account id.
+  ServiceAccounts: Mapping<String, Listing<String>> = new {}
+}
+
+class AccessRule {
+  /// Unique rule id.
+  Id: String
+
+  /// Optional rule description.
+  Description: String?
+
+  /// Rule effect.
+  Effect: AccessEffect = "Allow"
+
+  /// Principals this rule applies to.
+  Principals: PrincipalSelector = new {}
+
+  /// Operation patterns this rule applies to.
+  Operations: Listing<String> = new {}
+
+  /// Resource patterns this rule applies to.
+  Resources: Listing<String> = new {
+    "*"
+  }
+
+  /// Request conditions required for this rule to match.
+  Conditions: AccessConditions = new {}
+}
+
+class PrincipalSelector {
+  /// Match any principal.
+  Any: Boolean = false
+
+  /// Match anonymous access.
+  Anonymous: Boolean = false
+
+  /// Match specific user ids.
+  Users: Listing<String> = new {}
+
+  /// Match specific node ids or node wildcard patterns.
+  Nodes: Listing<String> = new {}
+
+  /// Match specific group ids.
+  Groups: Listing<String> = new {}
+
+  /// Match specific service account ids.
+  ServiceAccounts: Listing<String> = new {}
+
+  /// Match specific effective role names.
+  Roles: Listing<String> = new {}
+}
+
+class AccessConditions {
+  /// Required request origin.
+  Origin: RequestOrigin?
+
+  /// Required routed-via node id or wildcard pattern.
+  RoutedViaNodeId: String?
+
+  /// Accepted routed-via node ids or wildcard patterns.
+  RoutedViaNodeIds: Listing<String> = new {}
+
+  /// Required source node id or wildcard pattern.
+  SourceNodeId: String?
+
+  /// Accepted source node ids or wildcard patterns.
+  SourceNodeIds: Listing<String> = new {}
+
+  /// Required target node id or wildcard pattern.
+  TargetNodeId: String?
+
+  /// Required user-authenticated state.
+  UserAuthenticated: Boolean?
+
+  /// Required node-authenticated state.
+  NodeAuthenticated: Boolean?
+
+  /// Required route-authenticated state.
+  RouteAuthenticated: Boolean?
+
+  /// Required TLS or secure transport state.
+  RequiresTls: Boolean?
+
+  /// Required exact authentication level.
+  AuthLevel: AuthenticationLevel?
+
+  /// Required minimum authentication level.
+  MinAuthLevel: AuthenticationLevel?
+
+  /// Required scalar claims.
+  Claims: Mapping<String, String> = new {}
+
+  /// Required request metadata.
+  Metadata: Mapping<String, String> = new {}
+}
